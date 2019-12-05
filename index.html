@@ -89,19 +89,28 @@
 <ol>
 <li>git</li>
 <li>npm</li>
-<li>相应的markdown编辑软件（我用的vscode+markdown all in one）<br>下面进行相应的安装介绍<h3 id="git-安装"><a href="#git-安装" class="headerlink" title="git 安装"></a>git 安装</h3>简单来说就是按照官方给的教程一步步来<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="noopener">安装git</a>,因为git之前我已经搞过了，所以忘了具体的流程，需要注意到的是windows下的不一定会自动添加路径，有可能需要自己添加，如何检查自己的git是否安装好，只需要打开powershell（powershell是不需要折腾的windows最好的命令行软件），输入：<code>git</code>要是提示不是可执行的命令行，那么就应该去找一下路径手动配置一下，总的来说是简单的。<h3 id="npm安装"><a href="#npm安装" class="headerlink" title="npm安装"></a>npm安装</h3>这或许就是windows广泛使用的原因了，就是基本提供了可视化的才是windows的软件，npm就是<a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">下载</a>安装就完事，然后里面提供了加入到path的方法，所以点击了就可以完成。同样的在powershell里面输入：<code>npm</code> 要是没问题就完事。<h3 id="vscode-markdown-插件安装"><a href="#vscode-markdown-插件安装" class="headerlink" title="vscode markdown 插件安装"></a>vscode markdown 插件安装</h3>这个就超级简单了，<a href="https://github.com/yzhang-gh/vscode-markdown" target="_blank" rel="noopener">插件主页</a>，这就是vscode厉害的地方了，找了一帮免费大佬写插件，懂吧，我感觉vscode会一统天下。<h2 id="正式配置hexo"><a href="#正式配置hexo" class="headerlink" title="正式配置hexo"></a>正式配置hexo</h2>这里面主要借鉴了两个人的hexo配置教程</li>
+<li>ssh（使用的putty）</li>
+<li>相应的markdown编辑软件（我用的vscode+markdown all in one）<br>下面进行相应的安装介绍<h3 id="git-安装"><a href="#git-安装" class="headerlink" title="git 安装"></a>git 安装</h3>简单来说就是按照官方给的教程一步步来<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="noopener">安装git</a>,因为git之前我已经搞过了，所以忘了具体的流程，需要注意到的是windows下的不一定会自动添加路径，有可能需要自己添加，如何检查自己的git是否安装好，只需要打开powershell（powershell是不需要折腾的windows最好的命令行软件），输入：<code>git</code>要是提示不是可执行的命令行，那么就应该去找一下路径手动配置一下，总的来说是简单的。<h3 id="npm安装"><a href="#npm安装" class="headerlink" title="npm安装"></a>npm安装</h3>这或许就是windows广泛使用的原因了，就是基本提供了可视化的才是windows的软件，npm就是<a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">下载</a>安装就完事，然后里面提供了加入到path的方法，所以点击了就可以完成。同样的在powershell里面输入：<code>npm</code> 要是没问题就完事。<h3 id="putty-ssh客户端的安装"><a href="#putty-ssh客户端的安装" class="headerlink" title="putty ssh客户端的安装"></a>putty ssh客户端的安装</h3>简单来说就是下载了解压然后加入路劲完事，懂吧。<h3 id="vscode-markdown-插件安装"><a href="#vscode-markdown-插件安装" class="headerlink" title="vscode markdown 插件安装"></a>vscode markdown 插件安装</h3>这个就超级简单了，<a href="https://github.com/yzhang-gh/vscode-markdown" target="_blank" rel="noopener">插件主页</a>，这就是vscode厉害的地方了，找了一帮免费大佬写插件，懂吧，我感觉vscode会一统天下。<h2 id="正式配置hexo"><a href="#正式配置hexo" class="headerlink" title="正式配置hexo"></a>正式配置hexo</h2>这里面主要借鉴了两个人的hexo配置教程</li>
 </ol>
 <ul>
-<li><a href="">教程1</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/35668237" target="_blank" rel="noopener">教程1</a>   不说了，暂时还没搞完这里面的所有东西，只是完成了配置的这一步</li>
+<li><a href="https://www.jianshu.com/p/956c44c87fb1" target="_blank" rel="noopener">教程2</a>  这个比较基础，我推荐这两个结合起来看。</li>
 </ul>
+<p>总的来说就是这个两个教程配置部分主要是两个步骤：</p>
+<ol>
+<li>完成本地的hexo博客配置</li>
+<li>完成github上的博客设置</li>
+<li>完成ssh和github上的配置</li>
+</ol>
+<p>基本上就是这三个部分，其中1、2可以替换，但是ssh和github部分的就是有点问题，由于使用的是putty的ssh-keygen进行的密钥生成，会出现一些问题，这里先不谈了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/" data-id="ck3sxvosj0000todf0vo36idg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/" data-id="ck3sytna200003gdf78i544vq" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84hexo%E5%8D%9A%E5%AE%A2%EF%BC%9B-%E9%85%8D%E7%BD%AEssh/" rel="tag">配置自己的hexo博客； 配置ssh</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84hexo%E5%8D%9A%E5%AE%A2/" rel="tag">配置自己的hexo博客</a></li></ul>
 
     </footer>
   </div>
@@ -149,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/05/hello-world/" data-id="ck3sxvost0001todf2etnhpd7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/12/05/hello-world/" data-id="ck3sytnao00033gdf191ueebu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -172,7 +181,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84hexo%E5%8D%9A%E5%AE%A2%EF%BC%9B-%E9%85%8D%E7%BD%AEssh/" rel="tag">配置自己的hexo博客； 配置ssh</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84hexo%E5%8D%9A%E5%AE%A2/" rel="tag">配置自己的hexo博客</a></li></ul>
     </div>
   </div>
 
@@ -182,7 +191,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84hexo%E5%8D%9A%E5%AE%A2%EF%BC%9B-%E9%85%8D%E7%BD%AEssh/" style="font-size: 10px;">配置自己的hexo博客； 配置ssh</a>
+      <a href="/tags/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84hexo%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">配置自己的hexo博客</a>
     </div>
   </div>
 

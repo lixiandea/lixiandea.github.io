@@ -228,7 +228,7 @@
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/lixiandea" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -284,7 +284,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/lixiandea" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -467,7 +467,12 @@
 <li>pytorch 1.3安装</li>
 <li>detectron2 windows安装</li>
 </ol>
-<h1 id="python-安装"><a href="#python-安装" class="headerlink" title="python 安装"></a>python 安装</h1><p>当然，windows上需要面对很多奇怪的库的配置，和虚拟环境的需求（虚拟环境真的很重要），所以我选择conda，我电脑上安装的是<a href="https://www.anaconda.com/distribution/" target="_blank" rel="noopener">anaconda3.7</a>的版本，基本上就是截止到目前最新的版本了。但是pytorch环境的版本还是选择了目前来说最为稳定的python3.6，说句实话，几年前配置caffe的时候让我认识到版本这个东西真的很重要，差一点就等同于没有环境。那么还是那样，先创建相应的环境，在此之前先检查一下conda有没有添加到路径中：<code>conda -v</code> ,若是报错就是</p>
+<h1 id="python-安装"><a href="#python-安装" class="headerlink" title="python 安装"></a>python 安装</h1><p>当然，windows上需要面对很多奇怪的库的配置，和虚拟环境的需求（虚拟环境真的很重要），所以我选择conda，我电脑上安装的是<a href="https://www.anaconda.com/distribution/" target="_blank" rel="noopener">anaconda3.7</a>的版本，基本上就是截止到目前最新的版本了。但是pytorch环境的版本还是选择了目前来说最为稳定的python3.6，说句实话，几年前配置caffe的时候让我认识到版本这个东西真的很重要，差一点就等同于没有环境。</p>
+<h2 id="安装anaconda"><a href="#安装anaconda" class="headerlink" title="安装anaconda"></a>安装anaconda</h2><p>那么还是那样，先创建相应的环境，在此之前先检查一下conda有没有添加到路径中：<code>conda -v</code> ,若是报错就是就是没装好或者是环境没有添加到路径中（基本是没添加到路径中），那么你需要做的就是找到<code>conda.exe</code> 和对应路径下的<code>anaconda3/bin</code> 的路径并加到path下。</p>
+<h2 id="创造python-3-6的环境"><a href="#创造python-3-6的环境" class="headerlink" title="创造python=3.6的环境"></a>创造python=3.6的环境</h2><p>那么就是<code>conda create --name torch python=3.6</code>就可以完成对环境的配置了，然后装一下基本上都要用的库，比如<code>opencv</code>, <code>matplotlib</code>等库，可以通过可视化的界面或者命令行安装。</p>
+<h1 id="安装cuda和cudnn"><a href="#安装cuda和cudnn" class="headerlink" title="安装cuda和cudnn"></a>安装cuda和cudnn</h1><p>没有什么做深度学习的不需要装cuda，除非<code>AMD, YES!</code>懂吧。那么基本我们还是安装就完事，cuda会自动重新安装你的显卡驱动，必须要重启才能生效。（windows就是这点好，装个cuda贼方便）基本上会自动把相应的路径配好，<a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">下载cuda10</a>（最好是<code>cuda10</code>）安装完成后，对应的<code>nvcc.exe</code>路径一般在<code>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin</code>,要是系统中有多个<code>cuda</code>或者你需要安装多个<code>cudnn</code>请记得这个路径。相应的<code>cudnn</code><a href="https://developer.nvidia.com/cudnn" target="_blank" rel="noopener">下载链接</a>（我用的是7.2）下了之后解压按照<a href="https://www.deepfakescn.com/?p=376" target="_blank" rel="noopener">这个教程</a>放到对应位置就可以。打开<code>powershell</code>输入<code>nvcc -V</code>查看<code>cuda</code>版本信息就好了，但是<code>cudnn</code>版本就比较麻烦，你可以选择直接打开对应的<code>nvcc</code>路径下的<code>cudnn.h</code>看版本信息，当然<code>tf</code>和<code>pytorch</code>现在自带cudnn，但是我还是推荐自己装一下。</p>
+<h1 id="安装pytorch-1-3"><a href="#安装pytorch-1-3" class="headerlink" title="安装pytorch=1.3"></a>安装pytorch=1.3</h1><p>别的不说了，pytorch的文档好用而且还好装,比起tf可好多了，简单来说就是按照<a href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener">教程安装</a>就完事。实测<code>conda</code>安装<code>gpu</code>版本没有任何问题，但是<code>pip</code>安装<code>gpu</code>版本好像因为没有装<code>cuda-Toolkit</code>的原因导致无法调用<code>gpu</code>,所以推荐使用<code>conda</code>安装。这里说一下我对pytorch和tf的看法，那就是现在他们都在向易用性上做改进，<code>tf</code>用<code>keras</code>让构建模型很简单，但是相较于这些我还是倾向于<code>pytorch</code>的简单定义的方法，而且tf的文档版本套版本，平台套平台，一堆不知道什么东西的东西，同一个名字可以有一万种用法，我觉得这或许就是我不喜欢tf的地方了。</p>
+<h1 id="detectron2-安装"><a href="#detectron2-安装" class="headerlink" title="detectron2 安装"></a>detectron2 安装</h1><p>接下来就是重头戏了，detectron2官方的文档只提供了linux的<a href="https://github.com/facebookresearch/Detectron/blob/master/INSTALL.md" target="_blank" rel="noopener">安装介绍</a>，但是由于要用linux我嫌麻烦就找了一下windows下的安装方法，基本就是<a href="https://github.com/conansherry/detectron2" target="_blank" rel="noopener">这个路数</a>，那么需要注意到这里的几个文件需要修改，其次的话是<code>pycocotools</code>没办法直接使用pip安装，因为官方没有给windows的，而且他们爷不想给，所以推荐<a href="https://github.com/philferriere/cocoapi" target="_blank" rel="noopener">windows cocotools</a>，其次是确保你的<code>cl.exe</code>的路径没什么问题，但是基本上windows的detectron2安装的教程就可以完成了。</p>
 
             </div>
             <hr/>
@@ -997,13 +1002,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/lixiandea" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:lixiandea@cug.edu.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1013,7 +1018,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1171731855" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1171731855" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 

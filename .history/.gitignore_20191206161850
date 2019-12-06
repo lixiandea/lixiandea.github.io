@@ -6,4 +6,3 @@ node_modules/
 public/
 .deploy*/
 id_rsa_hexo
-id_rsa_hexo.pub

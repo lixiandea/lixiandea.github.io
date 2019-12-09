@@ -463,6 +463,31 @@
             <div id="articleContent">
                 <h1 id="2019-12-8"><a href="#2019-12-8" class="headerlink" title="2019.12.8"></a>2019.12.8</h1><p>昨天和高中同学一起起了华师，事实是大学确实是有的人的整容所，我和高中的男同学们都基本没变，女生们都变了蛮多的，都变得亚萨西（或者是我们好久不见所以亚萨西）。</p>
 <p>除此之外可能就是以前的同学们后面交往的问题了，人和人交往往往在计较一些什么东西，我很理解，但是我觉得交往本身就是一个相互交换的过程，人不可能一直保持主动申请交流，这太卑微了。而双方中的有一方多次不做出回应，显而易见的就会导致链接断开。</p>
+<pre class=" language-flow"><code class="language-flow">st=start:Start
+i=inputoutput:输入年份n
+cond1=condition:n能否被4整除？
+cond2=condition:n能否被100整除？
+cond3=condition:n能否被400整除？
+o1=inputoutput:输出非闰年
+o2=inputoutput:输出非闰年
+o3=inputoutput:输出闰年
+o4=inputoutput:输出闰年
+e=end
+
+st-i-cond1
+cond1(no)-o1-e
+cond1(yes)-cond2
+cond2(no)-o3-e
+cond2(yes)-cond3
+cond3(yes)-o2-e
+cond3(no)-o4-e</code></pre>
+<pre class=" language-gnuplot"><code class="language-gnuplot">set terminal svg
+set title "Simple Plots" font ",20"
+set key left box
+set samples 50
+set style data points
+
+plot [-10:10] sin(x),atan(x),cos(atan(x))</code></pre>
 
             </div>
             <hr/>

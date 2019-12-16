@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="浮生日记, 混吃等死">
-    <meta name="description" content="2019.12.8昨天和高中同学一起起了华师，事实是大学确实是有的人的整容所，我和高中的男同学们都基本没变，女生们都变了蛮多的，都变得亚萨西（或者是我们好久不见所以亚萨西）。
-除此之外可能就是以前的同学们后面交往的问题了，人和人交往往往在计">
+    <meta name="keywords" content="c# 调用python可执行程序, 混吃等死">
+    <meta name="description" content="为什么用c#调用python可执行程序使用pytorch进行深度学习的编程，并使用c#将结果进行可视化，但是问题来了，我们想要将整个流程集合到程序中，但是pytorch没有提供c#的接口，所以考虑使用调用命令行的方法调用程序。
+c#调用命令">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>浮生日记 | lixiande的混吃等死博客</title>
+    <title>c# 调用python可执行程序 | lixiande的混吃等死博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -304,13 +304,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        浮生日记
+                        c# 调用python可执行程序
                     </div>
                 </div>
             </div>
@@ -426,13 +426,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E6%97%A5%E8%AE%B0/">
-                                <span class="chip bg-color">日记</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -444,7 +440,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-12-09
+                    2019-12-16
                 </div>
                 
 
@@ -461,33 +457,10 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="2019-12-8"><a href="#2019-12-8" class="headerlink" title="2019.12.8"></a>2019.12.8</h1><p>昨天和高中同学一起起了华师，事实是大学确实是有的人的整容所，我和高中的男同学们都基本没变，女生们都变了蛮多的，都变得亚萨西（或者是我们好久不见所以亚萨西）。</p>
-<p>除此之外可能就是以前的同学们后面交往的问题了，人和人交往往往在计较一些什么东西，我很理解，但是我觉得交往本身就是一个相互交换的过程，人不可能一直保持主动申请交流，这太卑微了。而双方中的有一方多次不做出回应，显而易见的就会导致链接断开。</p>
-<pre class=" language-flow"><code class="language-flow">st=start:Start
-i=inputoutput:输入年份n
-cond1=condition:n能否被4整除？
-cond2=condition:n能否被100整除？
-cond3=condition:n能否被400整除？
-o1=inputoutput:输出非闰年
-o2=inputoutput:输出非闰年
-o3=inputoutput:输出闰年
-o4=inputoutput:输出闰年
-e=end
-
-st-i-cond1
-cond1(no)-o1-e
-cond1(yes)-cond2
-cond2(no)-o3-e
-cond2(yes)-cond3
-cond3(yes)-o2-e
-cond3(no)-o4-e</code></pre>
-<pre class=" language-gnuplot"><code class="language-gnuplot">set terminal svg
-set title "Simple Plots" font ",20"
-set key left box
-set samples 50
-set style data points
-
-plot [-10:10] sin(x),atan(x),cos(atan(x))</code></pre>
+                <h1 id="为什么用c-调用python可执行程序"><a href="#为什么用c-调用python可执行程序" class="headerlink" title="为什么用c#调用python可执行程序"></a>为什么用c#调用python可执行程序</h1><p>使用pytorch进行深度学习的编程，并使用c#将结果进行可视化，但是问题来了，我们想要将整个流程集合到程序中，但是pytorch没有提供c#的接口，所以考虑使用调用命令行的方法调用程序。</p>
+<h1 id="c-调用命令行的方法"><a href="#c-调用命令行的方法" class="headerlink" title="c#调用命令行的方法"></a>c#调用命令行的方法</h1><p>主要要使用<a href="https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.process?view=netframework-4.8" target="_blank" rel="noopener">Process</a>类，并进行相应的设置，这里需要注意到Process的<a href="https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.process.startinfo?view=netframework-4.8" target="_blank" rel="noopener">StartInfo</a>属性，基本上是配置进程的相关设置，比如使用什么程序执行<a href="https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.processstartinfo.filename?view=netframework-4.8#System_Diagnostics_ProcessStartInfo_FileName" target="_blank" rel="noopener">StratInfo.FileName</a>,是否使用环境变量<a href="https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.processstartinfo.useshellexecute?view=netframework-4.8#System_Diagnostics_ProcessStartInfo_UseShellExecute" target="_blank" rel="noopener">StartInfo.UseShellExecute</a>，运行时的参数设置<a href="https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.processstartinfo.arguments?view=netframework-4.8#System_Diagnostics_ProcessStartInfo_Arguments" target="_blank" rel="noopener">StartInfo.Arguments</a>，配置好之后基本可以等同为<code>StratInfo.FileName StartInfo.Arguments</code>,因为我们这边使用<code>python</code>，所以设置<code>StratInfo.FileName=&quot;python.exe&quot;</code>。</p>
+<h1 id="除此之外"><a href="#除此之外" class="headerlink" title="除此之外"></a>除此之外</h1><p>虽然看上去很简单，但是还是经过了很多的曲折才能完成，首先是<code>StartInfo.FileName</code>的设置，一开始设置为<code>cmd.exe</code>导致后面出现一堆问题，所以要是使用<code>python</code>之类的解释型程序一定要将<code>StartInfo.FileName</code>设置妥当。</p>
+<p>经过一段时间的寻找我找到了一个实现了较好用的带参数的调用方法，基本参考<a href="https://blog.csdn.net/u012142699/article/details/80424097" target="_blank" rel="noopener">这个</a>，虽然博主平措了几个东西但是还是基本没问题的，好用。</p>
 
             </div>
             <hr/>
@@ -513,7 +486,7 @@ plot [-10:10] sin(x),atan(x),cos(atan(x))</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lixiandea.github.io/2019/12/09/%E6%B5%AE%E7%94%9F%E6%97%A5%E8%AE%B0/">https://lixiandea.github.io/2019/12/09/%E6%B5%AE%E7%94%9F%E6%97%A5%E8%AE%B0/</a>
+                    <a href="https://lixiandea.github.io/2019/12/16/c-%E8%B0%83%E7%94%A8python%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F/">https://lixiandea.github.io/2019/12/16/c-%E8%B0%83%E7%94%A8python%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -550,11 +523,7 @@ plot [-10:10] sin(x),atan(x),cos(atan(x))</code></pre>
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E6%97%A5%E8%AE%B0/">
-                                    <span class="chip bg-color">日记</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -718,9 +687,10 @@ plot [-10:10] sin(x),atan(x),cos(atan(x))</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/12/16/c-%E8%B0%83%E7%94%A8python%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F/">
                     <div class="card-image">
@@ -739,9 +709,9 @@ c#调用命令
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-12-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -750,6 +720,7 @@ c#调用命令
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -760,24 +731,24 @@ c#调用命令
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/">
+                <a href="/2019/12/09/%E6%B5%AE%E7%94%9F%E6%97%A5%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="detectron2 windows 安装过程">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="浮生日记">
                         
-                        <span class="card-title">detectron2 windows 安装过程</span>
+                        <span class="card-title">浮生日记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            什么的是detectron2detectron2 是fair开发的目标检测、语义分割等的对比平台，集成了很多适合用来快速构建自己的目标检测、语义分割的模型和对应的预训练模型，但是官方文档里面只有linux和mac上的安装过程，虽然双系统很不
+                            记录日常
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-09
                             </span>
                         <span class="publish-author">
                             
@@ -790,8 +761,8 @@ c#调用命令
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/detetron2/">
-                        <span class="chip bg-color">detetron2</span>
+                    <a href="/tags/%E6%97%A5%E8%AE%B0/">
+                        <span class="chip bg-color">日记</span>
                     </a>
                     
                 </div>

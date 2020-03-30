@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>面试题目62：圆圈中最后剩下的数字</title>
+      <link href="/2020/03/30/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE62%EF%BC%9A%E5%9C%86%E5%9C%88%E4%B8%AD%E6%9C%80%E5%90%8E%E5%89%A9%E4%B8%8B%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+      <url>/2020/03/30/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE62%EF%BC%9A%E5%9C%86%E5%9C%88%E4%B8%AD%E6%9C%80%E5%90%8E%E5%89%A9%E4%B8%8B%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>0,1,,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字。求出这个圆圈里剩下的最后一个数字。</p><p>例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。</p><h1 id="问题解析"><a href="#问题解析" class="headerlink" title="问题解析"></a>问题解析</h1><p>每次删除对应的点，但是删除之后序列本身也会发生变化，也就是序列长度从n逐渐降低，直到最后序列长度为1，也就是最后的结果，也就是需要删除n-1个值，第k次删除的点都是当前长度前一次删除的点的编号(x<sub>k-1</sub> + m)% L<sub>cur</sub>。所以一开始可以直接模拟递推形式去进行删除，直到序列中长度为1，为止。  </p><pre class=" language-c++"><code class="language-c++">class Solution {public:    int lastRemaining(int n, int m) {        if (m == 1) return n - 1;        vector<int> nums(n);        for (int i = 0; i < n; i++)        {            nums[i] = i;        }        int f = -1;        for (int i = 1; i < n; i++)        {            f = (f + m -1) % nums.size();            if (f == nums.size() - 1) f = -1;            nums.erase(nums.begin() + (f + 1) % nums.size());        }        return nums[0];    }};</code></pre><p>但是超时，主要时间在vector每次的删除操作中，所以虽然可以模拟方法但是还是不行。</p><p>但是从长到短删减迭代过程需要考虑到序号实际在变化，也就是在第K次删除的时候删除的点x<sub>k</sub>对应的索引值和之前的不一样，所以从上到下并不适用。所以我们从下到上反推，假设序列长度为k时，删除的索引为x<sub>k</sub>,那么x<sub>k+1</sub> = (m+x<sub>k</sub>) % (L<sub>cur</sub>)。这种方法介绍很多但是我还是没看懂，所以以后再说。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Spring装配bean的方法</title>
       <link href="/2020/01/10/Spring%E8%A3%85%E9%85%8Dbean%E7%9A%84%E6%96%B9%E6%B3%95/"/>
       <url>/2020/01/10/Spring%E8%A3%85%E9%85%8Dbean%E7%9A%84%E6%96%B9%E6%B3%95/</url>

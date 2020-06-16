@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spring装配bean的方法, 混吃等死">
-    <meta name="description" content="Spring装配bean的方法 | lixiande的混吃等死博客">
+    <meta name="description" content="Spring beanSpring 核心容器主要以Beans 作为功能实现，并且通过Beans 实现控制反转，使用配置文件xml文件通过反射机制使用BeanFactory实现Bean自动装配。除此之外还提供了Bean 实例缓存、生命周期管理">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -425,9 +425,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/spring/">
+                                <span class="chip bg-color">spring</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -456,7 +460,59 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="Spring-bean"><a href="#Spring-bean" class="headerlink" title="Spring bean"></a>Spring bean</h1><p>Spring 核心容器主要以Beans 作为功能实现，并且通过Beans 实现控制反转，使用配置文件xml文件通过反射机制使用BeanFactory实现Bean自动装配。除此之外还提供了Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 </p>
+<h2 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h2><p>Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。 其中 Bean 缓存池为 HashMap 实现。</p>
+<p><img src="F:%5Cblog%5Csource%5Cimages%5CSpringBean.png" alt="大致实现"></p>
+<p>这里面配置Bean的主要方法有以下三类：</p>
+<ul>
+<li><p>Xml配置</p>
+</li>
+<li><p>Configuration 注解的类</p>
+</li>
+<li><p>AutoWired 自动注入注解</p>
+</li>
+</ul>
+<h3 id="Xml配置方法"><a href="#Xml配置方法" class="headerlink" title="Xml配置方法"></a>Xml配置方法</h3><p>  Xml配置使用Xml定义</p>
+<p>  <code>bean id=&quot;User&quot; class=&quot;com.lixiande.enities.User&quot; p:name=&quot;zhangyukang&quot; autowire=&quot;byType&quot; scope=&quot;prototype&quot; &gt;&lt;/bean&gt;</code></p>
+<p>  这里面主要涉及Bean的id、class、类的内部参数定义、生成的Bean的作用域、以及自动注入的方式。这里面就参数进行介绍：</p>
+<ol>
+<li><p>autowire：注入的方式，主要有byName和byType方式以及constructor方法，分别对应按照bean的id配置、类型配置和具有相同的属性的Bean的。</p>
+</li>
+<li><p>id： 对应的bean的id。id作为这个bean的名字，是唯一的不可重复的，在使用<code>autowire=&quot;byName&quot;</code>形式时候会自动查找具有相同id的bean自动装填。</p>
+</li>
+<li><p>class： class定义了bean加载的类型，使用xml方式配置时候使用XmlBeanFactory按照class的路径调用getBean(String beanName)方法获得对应的Bean。从某种意义上说就是反射的class.forName()形式。</p>
+</li>
+<li><p>scope: 定义xml生成的Bean的作用域，分别由singleton、prototype等形式。</p>
+<p>除此之外还有使用很多详细的参数，如<code>p:name</code>的形式对应bean内部的构造函数使用的参数设置，以及内部的很多参数设置的标记如<code>ref</code> <code>property</code> <code>entry</code>等。</p>
+<h3 id="Configuration-注解"><a href="#Configuration-注解" class="headerlink" title="Configuration 注解"></a>Configuration 注解</h3><p>Configuration 注解使用在class前面，定义该类为一个配置类，定义Bean间的依赖关系和Bean的构造形式，下面以代码示例</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EntityConfig</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//定义单个Bean的形式</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> User <span class="token function">user</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//多个类的依赖关系，这里的User参数会通过自动注入实现</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> Company <span class="token function">company</span><span class="token punctuation">(</span>User user<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Company</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>使用@Bean 注解获得对应类型的Bean，调用对应得构造函数，这个方法相对来说比较容易显示定义配置关系，但是相对于xml形式代码量会比较大。除此之外这个配置形式数据也可以看作是一个Bean，可以通过Xml进行配置。</p>
+<h3 id="AutoWired-自动注入注解"><a href="#AutoWired-自动注入注解" class="headerlink" title="AutoWired 自动注入注解"></a>AutoWired 自动注入注解</h3><p>AutoWired 自动注入注解主要使用@AutoWired 注解实现配置也就是通过定义了的Bean，使用@AutoWired 而不直接显示定义获取形式可以将Bean写在类变量中。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AppConfig</span><span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true">//这里会自动生成一个User类型的数据</span>
+ <span class="token annotation punctuation">@AutoWired</span>
+ <span class="token keyword">private</span> User user<span class="token punctuation">;</span>
+ <span class="token annotation punctuation">@Bean</span>
+ <span class="token keyword">public</span> Company <span class="token function">company</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Company</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+</li>
+</ol>
+<h2 id="Bean的装配形式"><a href="#Bean的装配形式" class="headerlink" title="Bean的装配形式"></a>Bean的装配形式</h2><p>  Bean的配置方式基本就上面三种，但是调用的配置方式却完全不同。</p>
+
             </div>
             <hr/>
 
@@ -518,7 +574,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/spring/">
+                                    <span class="chip bg-color">spring</span>
+                                </a>
+                            
                         </div>
                     
                 </div>

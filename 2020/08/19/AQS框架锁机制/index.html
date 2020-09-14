@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java反射, 混吃等死">
-    <meta name="description" content="反射机制Spring的IoC特性使得Spring具有较好的非侵入性和解耦性能，同时可以基于xml配置文件的形式使得Spring能够较好的在外配置程序运行过程。JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；">
+    <meta name="keywords" content="AQS框架锁机制, 混吃等死">
+    <meta name="description" content="AQS框架锁机制AQS，指的是AbstractQueuedSynchronizer，简单来说就是通过阻塞队列实现的同步机制。在java中主要的实现类是 java.util.concurrent.locks.AbstractQueuedSyn">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java反射 | lixiande的混吃等死博客</title>
+    <title>AQS框架锁机制 | lixiande的混吃等死博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,13 +303,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java反射
+                        AQS框架锁机制
                     </div>
                 </div>
             </div>
@@ -425,13 +425,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Spring-IOC-reflect/">
-                                <span class="chip bg-color">Spring IOC, reflect</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -443,7 +439,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-14
+                    2020-08-19
                 </div>
                 
 
@@ -460,152 +456,45 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h1><p>Spring的<code>IoC</code>特性使得Spring具有较好的非侵入性和解耦性能，同时可以基于xml配置文件的形式使得Spring能够较好的在外配置程序运行过程。JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。这种机制使得Java从某种程度上可以看作是一个半动态的语言。</p>
-<p>那么反射机制主要提供了什么呢？</p>
-<ol>
-<li>提供从class文件中获取对应的类的class；</li>
-<li>提供可以通过class获取对应的类对象和调用对应的成员变量和成员函数。</li>
-</ol>
-<h2 id="反射介绍"><a href="#反射介绍" class="headerlink" title="反射介绍"></a>反射介绍</h2><p>基于<code>java reflect</code> 提供的接口获得class对象和对应参数和方法。这个部分主要基于Class、Method、Field和Constructor实现，分别对应类实体、类成员变量、类方法、类的构造函数。除此之外还会有获取对应的ClassLoader的方法。</p>
-<p>其基本用法如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取class 类型的三种方法</span>
-<span class="token comment" spellcheck="true">//1、从已有对象中获取</span>
-<span class="token comment" spellcheck="true">//2、从定义的导入的类名中获取</span>
-<span class="token comment" spellcheck="true">//3、从类名字中获取，jvm会通过classpath获取对应的类</span>
-<span class="token keyword">class</span> <span class="token class-name">clazz</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">class</span>
-<span class="token class-name">class</span> clazz<span class="token operator">=</span>Person<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
-Class <span class="token class-name">clazz</span><span class="token operator">=</span>Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.lixiande.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre>
-<p>获取对应的class类之后可以通过操作class类对象从而调用方法和属性的形式，基本有以下用法：</p>
-<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取所有方法</span>
-Method<span class="token punctuation">[</span><span class="token punctuation">]</span> method<span class="token operator">=</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">for</span><span class="token punctuation">(</span>Method m<span class="token operator">:</span>method<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//获取 Person 类的所有成员属性信息</span>
-Field<span class="token punctuation">[</span><span class="token punctuation">]</span> field<span class="token operator">=</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">//获取 Person 类的所有构造方法信息</span>
-Constructor<span class="token punctuation">[</span><span class="token punctuation">]</span> constructor<span class="token operator">=</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<h2 id="获取Class-类实体的方法"><a href="#获取Class-类实体的方法" class="headerlink" title="获取Class 类实体的方法"></a>获取Class 类实体的方法</h2><p>除此之外还有更加详细的使用方式，下面详细介绍各个部分的形式：</p>
+                <h2 id="AQS框架锁机制"><a href="#AQS框架锁机制" class="headerlink" title="AQS框架锁机制"></a>AQS框架锁机制</h2><p>AQS，指的是AbstractQueuedSynchronizer，简单来说就是通过阻塞队列实现的同步机制。在java中主要的实现类是 java.util.concurrent.locks.AbstractQueuedSynchronizer<code>,内部实现</code>Wait queue node class（”CLH” (Craig, Landin, and Hagersten) lock queue），</p>
+<p><img src="F:%5Cblog%5Csource%5Cimages%5CNode.png" alt="Node"></p>
+<p>该类对象中维持了两个Queue，分别是<code>SHARED</code>和<code>EXCLUSIVE</code>以及三个状态值，分别为<code>SIGNAL、CANCELLED、CONDITION、PROPAGATE</code>分别对应含义如下：</p>
 <table>
 <thead>
 <tr>
-<th align="center">方法</th>
-<th align="center">用途</th>
+<th>状态值</th>
+<th>含义</th>
+<th>中文</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">asSubclass(Class<U> clazz)</td>
-<td align="center">把传递的类的对象转换成代表其子类的对象</td>
+<td>SIGNAL</td>
+<td>The successor of this node is (or will soon be) blocked (via park), so the current node must unpark its successor when it releases or cancels. To avoid races, acquire methods must first indicate they need a signal, then retry the atomic acquire, and then, on failure, block.</td>
+<td>此节点的后续节点已（或很快将被）阻止（park），因此当前节点在释放或取消其后续节点时必须断开其后续节点的连接。为了避免争用，acquire方法必须首先指示它们需要一个信号，然后重试获取，然后在失败时阻塞。</td>
 </tr>
 <tr>
-<td align="center">Cast</td>
-<td align="center">把对象转换成代表类或是接口的对象</td>
+<td>CANCELLED</td>
+<td>This node is cancelled due to timeout or interrupt. Nodes never leave this state. In particular, a thread with cancelled node never again blocks.</td>
+<td>由于超时或中断，此节点被取消。节点永远不会离开此状态。特别是，具有取消节点的线程永远不会再阻塞。（事实上是不会回到这里）</td>
 </tr>
 <tr>
-<td align="center">getClassLoader()</td>
-<td align="center">获得类的加载器</td>
+<td>CONDITION</td>
+<td>this node is currently on a condition queue. It will not be used as a sync queue node until transferred, at which time the status will be set to 0. (Use of this value here has nothing to do with the other uses of the field, but simplifies mechanics.)</td>
+<td>此节点当前位于条件队列中。在传输之前，它不会用作同步队列节点，此时状态将设置为0。（此处使用此值与字段的其他用途无关，但简化了机制。）</td>
 </tr>
 <tr>
-<td align="center">getClasses()</td>
-<td align="center">数组中包含该类中所有公共类和接口类的对象</td>
+<td>PROPAGATE</td>
+<td>A releaseShared should be propagated to other  nodes. This is set (for head node only) in doReleaseShared to ensure propagation continues, even if other operations have since intervened.</td>
+<td>共享的发布应该传播到其他节点。这是在doReleaseShared中设置的（仅适用于头节点），以确保传播继续进行，即使此后有其他操作介入。</td>
 </tr>
 <tr>
-<td align="center">getDeclaredClasses()</td>
-<td align="center">返回一个数组，数组中包含该类中所有类和接口类的对象</td>
-</tr>
-<tr>
-<td align="center">forName(String className)</td>
-<td align="center">根据类名返回类的对象</td>
-</tr>
-<tr>
-<td align="center">getName()</td>
-<td align="center">获得类的完整路径名字</td>
-</tr>
-<tr>
-<td align="center">newInstance()</td>
-<td align="center">创建类的实例</td>
-</tr>
-<tr>
-<td align="center">getPackage()</td>
-<td align="center">获得类的包</td>
-</tr>
-<tr>
-<td align="center">getSimpleName()</td>
-<td align="center">获得类的名字</td>
-</tr>
-<tr>
-<td align="center">getSuperclass()</td>
-<td align="center">获得当前类继承的父类的名字</td>
-</tr>
-<tr>
-<td align="center">getInterfaces()</td>
-<td align="center">获得当前类实现的类或是接口</td>
+<td>0</td>
+<td>None of the above，normal sync nodes</td>
+<td>一般同步Node的状态值</td>
 </tr>
 </tbody></table>
-<h2 id="获取Class-类对应的Field的方法"><a href="#获取Class-类对应的Field的方法" class="headerlink" title="获取Class 类对应的Field的方法"></a>获取Class 类对应的Field的方法</h2><p>除此之外还可以获得对应的类变量：</p>
-<table>
-<thead>
-<tr>
-<th align="center">方法</th>
-<th align="center">用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">getField(String name)</td>
-<td align="center">获得某个公有的属性对象</td>
-</tr>
-<tr>
-<td align="center">getFields()</td>
-<td align="center">获得所有公有的属性对象</td>
-</tr>
-<tr>
-<td align="center">getDeclaredField(String name)</td>
-<td align="center">获得某个属性对象</td>
-</tr>
-<tr>
-<td align="center">getDeclaredFields()</td>
-<td align="center">获得所有属性对象</td>
-</tr>
-</tbody></table>
-<h2 id="获取Class-类对应的Method的方法"><a href="#获取Class-类对应的Method的方法" class="headerlink" title="获取Class 类对应的Method的方法"></a>获取Class 类对应的Method的方法</h2><p>以及获得类方法的方法：</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>getMethod(String name, Class…&lt;?&gt; parameterTypes)</td>
-<td>获得该类某个公有的方法</td>
-</tr>
-<tr>
-<td>getMethods()</td>
-<td>获得该类所有公有的方法</td>
-</tr>
-<tr>
-<td>getDeclaredMethod(String name, Class…&lt;?&gt; parameterTypes)</td>
-<td>获得该类某个方法</td>
-</tr>
-<tr>
-<td>getDeclaredMethods()</td>
-<td>获得该类所有方法</td>
-</tr>
-</tbody></table>
-<h2 id="操作过程"><a href="#操作过程" class="headerlink" title="操作过程"></a>操作过程</h2><p>其中调用类内部的方法的整个操作过程基本如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取对应的类实体        </span>
-Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> clazz <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.lixiande.Person"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//获取对应的类对象，使用newInstance()方法   </span>
-Object instance <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//按照名称和对应的参数类型获取数据</span>
-Method prepareMethod <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"prepare"</span><span class="token punctuation">,</span> InputStream<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//按照名称和对应的参数类型获取数据</span>
-Method getResultMethod <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"getResult"</span><span class="token punctuation">,</span> Long<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// 使用Method.invoke()调用对应的数据执行</span>
-prepareMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>instance<span class="token punctuation">,</span> fileInputStream<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>虽然反射很好操作但是基本上需要能够详细了解对应的方法的详细内容。</p>
+<p>其对应的实际值为waitStatus，使用waitStatus指示当前节点处于什么状态</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/10431632-7d2aa48b9b217bbe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="img"></p>
 
             </div>
             <hr/>
@@ -631,7 +520,7 @@ prepareMethod<span class="token punctuation">.</span><span class="token function
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lixiandea.github.io/2020/06/14/java%E5%8F%8D%E5%B0%84/">https://lixiandea.github.io/2020/06/14/java%E5%8F%8D%E5%B0%84/</a>
+                    <a href="https://lixiandea.github.io/2020/08/19/AQS%E6%A1%86%E6%9E%B6%E9%94%81%E6%9C%BA%E5%88%B6/">https://lixiandea.github.io/2020/08/19/AQS%E6%A1%86%E6%9E%B6%E9%94%81%E6%9C%BA%E5%88%B6/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -668,11 +557,7 @@ prepareMethod<span class="token punctuation">.</span><span class="token function
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Spring-IOC-reflect/">
-                                    <span class="chip bg-color">Spring IOC, reflect</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -840,25 +725,27 @@ prepareMethod<span class="token punctuation">.</span><span class="token function
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/06/22/linux-%E5%AE%89%E8%A3%85Docker/">
+                <a href="/2020/09/14/9.13%E5%AD%97%E8%8A%82%E4%B8%80%E4%BA%8C%E9%9D%A2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="linux 安装Docker">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="9.13字节一二面">
                         
-                        <span class="card-title">linux 安装Docker</span>
+                        <span class="card-title">9.13字节一二面</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Docker意义作为虚拟化的目前主要的技术和微服务框架部署的主要承担者，在运维中有着很重要的功能，那么现在就来学习一下怎么安装Docker。
-Docker 安装安装环境本篇文章使用的是优惠期间使用的华为云ESC实例，系统是Centos8，安
+                            字节一二面913字节两轮面试
+一面一面问的东西很多，很杂，但是主要是以下三个方面的内容：
+垃圾回收机制1、三色标记
+并发标记会在初始标记的基础上堆整个堆进行逐层扫描，耗时较长，但是因为可以并发执行标记，不影响用户体院，但是并发标记过程有问题
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
                         </span>
                         <span class="publish-author">
                             
@@ -867,14 +754,6 @@ Docker 安装安装环境本篇文章使用的是优惠期间使用的华为云E
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/docker/">
-                        <span class="chip bg-color">docker</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -886,25 +765,35 @@ Docker 安装安装环境本篇文章使用的是优惠期间使用的华为云E
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/13/%E9%98%BF%E9%87%8C%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/">
+                <a href="/2020/07/04/spring-boot-mapping-%E6%B3%A8%E8%A7%A3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="阿里面试问题">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="spring boot mapping 注解">
                         
-                        <span class="card-title">阿里面试问题</span>
+                        <span class="card-title">spring boot mapping 注解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2020被阿里招实习暴打的故事面试1问题简历相关简历中项目的介绍，比较重要的几个部分，平时兴趣爱好和用得到的技术。
-java Synchronized 锁Synchronized关键字是Java关键字，用于保证方法或者代码块在执行时，同一时
+                            spring boot 中Mapping是负责处理数据网站和后端数据处理的注解。其中主要有以下几种Mapping：
+
+GetMapping
+
+
+PostMapping
+
+
+//to do 
+
+
+
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-04
                             </span>
                         <span class="publish-author">
                             

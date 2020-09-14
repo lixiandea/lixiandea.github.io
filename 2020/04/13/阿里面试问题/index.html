@@ -599,7 +599,7 @@ Thread2 count :9</code></pre><h3 id="hashmap"><a href="#hashmap" class="headerli
 <span class="token keyword">final</span> <span class="token keyword">float</span> loadFactor<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// 负载因子</span>
 <span class="token keyword">int</span> modCount<span class="token punctuation">;</span>  
 <span class="token keyword">int</span> size<span class="token punctuation">;</span>  </code></pre>
-<p>在初始化时HashMao中的桶数组长度为16，LoadFactor是0.75，而Threshold则为最大能容纳的键值对。在定义好长度之后，负载因子越大则能容纳的键值对越多。当插入数据使HashMap长度超过阈值之后就进行resize，将容量拓展为原来的两倍，在实际应用中可以考虑修改LoadFactor得到更好的储存性能或者更好的查找性能。但是当数据长度依旧超长的时候，引入红黑树进行优化。当一个桶的元素超过TREEIFY_THRESHOLD，就执行<code>treeifyBin()</code>用红黑树替换链表，从而提高速度。整体逻辑如下：<br><img src="/source/images/hashMapTree.png" alt="流程图"></p>
+<p>在初始化时HashMap中的桶数组长度为16，LoadFactor是0.75，而Threshold则为最大能容纳的键值对。在定义好长度之后，负载因子越大则能容纳的键值对越多。当插入数据使HashMap长度超过阈值之后就进行resize，将容量拓展为原来的两倍，在实际应用中可以考虑修改LoadFactor得到更好的储存性能或者更好的查找性能。但是当数据长度依旧超长的时候，引入红黑树进行优化。当一个桶的元素超过TREEIFY_THRESHOLD，就执行<code>treeifyBin()</code>用红黑树替换链表，从而提高速度。整体逻辑如下：<br><img src="/source/images/hashMapTree.png" alt="流程图"></p>
 
             </div>
             <hr/>

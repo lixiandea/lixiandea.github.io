@@ -52,33 +52,6 @@
     </item>
     
     <item>
-      <title>Hello World</title>
-      <link>https://lixiandea.github.io/2026/05/11/hello-world/</link>
-      <guid>https://lixiandea.github.io/2026/05/11/hello-world/</guid>
-      <pubDate>Mon, 11 May 2026 06:36:09 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</description>
-          
-        
-      
-      
-      
-      
-      <category domain="https://lixiandea.github.io/categories/hexo/">hexo</category>
-      
-      
-      <category domain="https://lixiandea.github.io/tags/hexo/">hexo</category>
-      
-      
-      <comments>https://lixiandea.github.io/2026/05/11/hello-world/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>26岁女房客读后感</title>
       <link>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
       <guid>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
@@ -406,7 +379,7 @@
           
           
       <description>&lt;p&gt;&lt;code&gt;vue proxy&lt;/code&gt;实现&lt;/p&gt;
-&lt;p&gt;之前尝试实现&lt;code&gt;vue&lt;/code&gt;数据劫持，里面有一些方法实现不是很好，经过查阅#&lt;a</description>
+&lt;p&gt;之前尝试实现&lt;code&gt;vue&lt;/code&gt;数据劫持，里面有一些方法实现不是很好，经过查阅&lt;a</description>
           
         
       
@@ -511,6 +484,33 @@
       
       
       <comments>https://lixiandea.github.io/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://lixiandea.github.io/2019/12/05/hello-world/</link>
+      <guid>https://lixiandea.github.io/2019/12/05/hello-world/</guid>
+      <pubDate>Wed, 04 Dec 2019 16:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/hexo/">hexo</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/hexo/">hexo</category>
+      
+      
+      <comments>https://lixiandea.github.io/2019/12/05/hello-world/#disqus_thread</comments>
       
     </item>
     

@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>lixiande的博客</title>
+    <link>https://lixiandea.github.io/</link>
+    
+    <image>
+      <url>https://lixiandea.github.io/icon.png</url>
+      <title>lixiande的博客</title>
+      <link>https://lixiandea.github.io/</link>
+    </image>
+    
+    <atom:link href="https://lixiandea.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description></description>
+    <pubDate>Mon, 11 May 2026 07:28:09 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用Claude Code + 火山方舟Coding Plan自动写Hexo博客</title>
+      <link>https://lixiandea.github.io/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/</link>
+      <guid>https://lixiandea.github.io/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/</guid>
+      <pubDate>Mon, 11 May 2026 07:26:33 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/AI%E5%B7%A5%E5%85%B7/">AI工具</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/Claude-Code/">Claude Code</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9F/">火山方舟</category>
+      
+      <category domain="https://lixiandea.github.io/tags/Hexo/">Hexo</category>
+      
+      <category domain="https://lixiandea.github.io/tags/AI%E7%BC%96%E7%A8%8B/">AI编程</category>
+      
+      
+      <comments>https://lixiandea.github.io/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://lixiandea.github.io/2026/05/11/hello-world/</link>
+      <guid>https://lixiandea.github.io/2026/05/11/hello-world/</guid>
+      <pubDate>Mon, 11 May 2026 06:36:09 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/hexo/">hexo</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/hexo/">hexo</category>
+      
+      
+      <comments>https://lixiandea.github.io/2026/05/11/hello-world/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>26岁女房客读后感</title>
+      <link>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
+      <guid>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
+      <pubDate>Wed, 20 Mar 2024 07:22:19 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;近期读完了我的26岁女房客这本书，我的理解里面这本书是一个颓废青年不断成长不选抉择最后选择女主的故事。里面关于男主和四个女主的情感故事覆盖了很多的现实生活中恋爱的种类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;简薇：代表校园刻骨铭心的初恋；&lt;/li&gt;
+&lt;li&gt;乐瑶：人生低迷时期的相互陪伴</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/">读后感</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/">读后感</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E4%BA%BA%E7%94%9F%E6%80%9D%E8%80%83/">人生思考</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>2023的思考</title>
+      <link>https://lixiandea.github.io/2024/03/04/2023%E7%9A%84%E6%80%9D%E8%80%83/</link>
+      <guid>https://lixiandea.github.io/2024/03/04/2023%E7%9A%84%E6%80%9D%E8%80%83/</guid>
+      <pubDate>Mon, 04 Mar 2024 12:45:37 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;2023年过去了，这是我第一次完整在一个公司度过一年，这一年我身上发生了很多的变化：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;完成了工作身份上的转变，从需求实现的人变化为自我提出需求和完成需求的角色；&lt;/li&gt;
+&lt;li&gt;工作氛围的变化，现在对接的工作人更多，且在工友里面找到了一起打羽毛球</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/%E4%BA%BA%E7%94%9F%E6%80%9D%E8%80%83/">人生思考</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/%E4%BA%BA%E7%94%9F%E6%80%9D%E8%80%83/">人生思考</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/03/04/2023%E7%9A%84%E6%80%9D%E8%80%83/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>unity设置maxSize减少图片内存开销</title>
+      <link>https://lixiandea.github.io/2024/02/22/unity%E8%AE%BE%E7%BD%AEmaxSize%E5%87%8F%E5%B0%91%E5%9B%BE%E7%89%87%E5%86%85%E5%AD%98%E5%BC%80%E9%94%80/</link>
+      <guid>https://lixiandea.github.io/2024/02/22/unity%E8%AE%BE%E7%BD%AEmaxSize%E5%87%8F%E5%B0%91%E5%9B%BE%E7%89%87%E5%86%85%E5%AD%98%E5%BC%80%E9%94%80/</guid>
+      <pubDate>Thu, 22 Feb 2024 07:08:17 GMT</pubDate>
+      
+      
+      
+      
+      
+      
+      <comments>https://lixiandea.github.io/2024/02/22/unity%E8%AE%BE%E7%BD%AEmaxSize%E5%87%8F%E5%B0%91%E5%9B%BE%E7%89%87%E5%86%85%E5%AD%98%E5%BC%80%E9%94%80/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>coze使用体验</title>
+      <link>https://lixiandea.github.io/2024/02/22/coze%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</link>
+      <guid>https://lixiandea.github.io/2024/02/22/coze%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</guid>
+      <pubDate>Thu, 22 Feb 2024 03:43:12 GMT</pubDate>
+      
+      
+      
+      
+      
+      
+      <comments>https://lixiandea.github.io/2024/02/22/coze%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>unity微信小游戏wasm代码分析</title>
+      <link>https://lixiandea.github.io/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <guid>https://lixiandea.github.io/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <pubDate>Mon, 19 Feb 2024 10:01:32 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;wasm代码生成&lt;br&gt;&lt;code&gt;unity</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F/">微信小游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/wasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/">wasm代码分析</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Addressables优化catalog文件</title>
+      <link>https://lixiandea.github.io/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/</link>
+      <guid>https://lixiandea.github.io/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/</guid>
+      <pubDate>Mon, 19 Feb 2024 06:47:06 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;code&gt;unity&lt;/code&gt;使用&lt;code&gt;Addressables&lt;/code&gt;进行资源管理很方便但是有一个很值得诟病的问题, 那就是&lt;code&gt;catalog&lt;/code&gt;文件过大,</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/addressabls/">addressabls</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>unity拓展编辑器</title>
+      <link>https://lixiandea.github.io/2024/02/05/unity%E6%8B%93%E5%B1%95%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+      <guid>https://lixiandea.github.io/2024/02/05/unity%E6%8B%93%E5%B1%95%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
+      <pubDate>Mon, 05 Feb 2024 09:07:43 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&amp;#x2F;&amp;#x2F;</description>
+          
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://lixiandea.github.io/2024/02/05/unity%E6%8B%93%E5%B1%95%E7%BC%96%E8%BE%91%E5%99%A8/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>spine优化</title>
+      <link>https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/</link>
+      <guid>https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/</guid>
+      <pubDate>Sat, 03 Feb 2024 13:07:27 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;项目背景&quot;&gt;&lt;a href=&quot;#项目背景&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/spine/">spine</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>kafka学习</title>
+      <link>https://lixiandea.github.io/2024/01/28/kafka%E5%AD%A6%E4%B9%A0/</link>
+      <guid>https://lixiandea.github.io/2024/01/28/kafka%E5%AD%A6%E4%B9%A0/</guid>
+      <pubDate>Sun, 28 Jan 2024 03:25:46 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;kafka-学习&quot;&gt;&lt;a href=&quot;#kafka-学习&quot; class=&quot;headerlink&quot; title=&quot;kafka 学习&quot;&gt;&lt;/a&gt;kafka 学习&lt;/h1&gt;&lt;p&gt;windows 上的 kafka 学习和安装相关的问题&lt;/p&gt;
+&lt;h2</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/kafka/">kafka</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/kafka/">kafka</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/01/28/kafka%E5%AD%A6%E4%B9%A0/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>goStringBuilder使用</title>
+      <link>https://lixiandea.github.io/2024/01/28/goStringBuilder%E4%BD%BF%E7%94%A8/</link>
+      <guid>https://lixiandea.github.io/2024/01/28/goStringBuilder%E4%BD%BF%E7%94%A8/</guid>
+      <pubDate>Sun, 28 Jan 2024 03:22:39 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;go-strings-Builder-使用&quot;&gt;&lt;a href=&quot;#go-strings-Builder-使用&quot; class=&quot;headerlink&quot; title=&quot;go strings.Builder 使用&quot;&gt;&lt;/a&gt;go strings.Builder</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/go/">go</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/go/">go</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E6%80%A7%E8%83%BD/">性能</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/01/28/goStringBuilder%E4%BD%BF%E7%94%A8/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>从三色旗到快排</title>
+      <link>https://lixiandea.github.io/2024/01/28/%E4%BB%8E%E4%B8%89%E8%89%B2%E6%97%97%E5%88%B0%E5%BF%AB%E6%8E%92/</link>
+      <guid>https://lixiandea.github.io/2024/01/28/%E4%BB%8E%E4%B8%89%E8%89%B2%E6%97%97%E5%88%B0%E5%BF%AB%E6%8E%92/</guid>
+      <pubDate>Sun, 28 Jan 2024 03:22:05 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;从三色旗到快排&quot;&gt;&lt;a href=&quot;#从三色旗到快排&quot; class=&quot;headerlink&quot; title=&quot;从三色旗到快排&quot;&gt;&lt;/a&gt;从三色旗到快排&lt;/h1&gt;&lt;h2 id=&quot;三色旗问题&quot;&gt;&lt;a href=&quot;#三色旗问题&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/leetcode/">leetcode</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/leetcode/">leetcode</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E5%BF%AB%E6%8E%92/">快排</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/01/28/%E4%BB%8E%E4%B8%89%E8%89%B2%E6%97%97%E5%88%B0%E5%BF%AB%E6%8E%92/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Lua实现数据拦截和简单的依赖收集</title>
+      <link>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/</link>
+      <guid>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/</guid>
+      <pubDate>Sun, 28 Jan 2024 03:21:57 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;仿写-vue-实现数据拦截和简单的依赖收集&quot;&gt;&lt;a href=&quot;#仿写-vue-实现数据拦截和简单的依赖收集&quot; class=&quot;headerlink&quot; title=&quot;仿写 vue - 实现数据拦截和简单的依赖收集&quot;&gt;&lt;/a&gt;仿写 vue -</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>lua数据劫持</title>
+      <link>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/</link>
+      <guid>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/</guid>
+      <pubDate>Sun, 28 Jan 2024 03:21:45 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;code&gt;vue proxy&lt;/code&gt;实现&lt;/p&gt;
+&lt;p&gt;之前尝试实现&lt;code&gt;vue&lt;/code&gt;数据劫持，里面有一些方法实现不是很好，经过查阅#&lt;a</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>缓存设计</title>
+      <link>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/</link>
+      <guid>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/</guid>
+      <pubDate>Sun, 28 Jan 2024 03:21:36 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;缓存设计&lt;/p&gt;
+&lt;p&gt;在读多写少的服务中，可以通过缓存将一些代价较为高昂的请求结果保存，比如对数据库的读取请求或者一些复杂操作结果进行保留，实现较高的性能。因而缓存是一个比较通用但是又效果良好的手段去增强我们的服务性能。&lt;/p&gt;
+&lt;h2 id=&quot;缓存结构&quot;&gt;&lt;a</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/%E9%9D%A2%E8%AF%95/">面试</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/%E9%9D%A2%E8%AF%95/">面试</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">系统设计</category>
+      
+      
+      <comments>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>detectron2 windows 安装过程</title>
+      <link>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</link>
+      <guid>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</guid>
+      <pubDate>Fri, 06 Dec 2019 02:19:55 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;什么的是detectron2&quot;&gt;&lt;a href=&quot;#什么的是detectron2&quot; class=&quot;headerlink&quot; title=&quot;什么的是detectron2&quot;&gt;&lt;/a&gt;什么的是detectron2&lt;/h1&gt;&lt;p&gt;detectron2</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/detectron/">detectron</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/detectron/">detectron</category>
+      
+      <category domain="https://lixiandea.github.io/tags/pytorch/">pytorch</category>
+      
+      <category domain="https://lixiandea.github.io/tags/windows/">windows</category>
+      
+      
+      <comments>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>My first hexo blog about how to deploy hexo</title>
+      <link>https://lixiandea.github.io/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/</link>
+      <guid>https://lixiandea.github.io/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/</guid>
+      <pubDate>Thu, 05 Dec 2019 15:20:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;为什么写博客、&quot;&gt;&lt;a href=&quot;#为什么写博客、&quot; class=&quot;headerlink&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/hexo/">hexo</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84hexo%E5%8D%9A%E5%AE%A2/">配置自己的hexo博客</category>
+      
+      
+      <comments>https://lixiandea.github.io/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>

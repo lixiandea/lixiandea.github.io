@@ -15,8 +15,39 @@
     <atom:link href="https://lixiandea.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 11 May 2026 07:57:16 GMT</pubDate>
+    <pubDate>Tue, 12 May 2026 02:58:48 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用GitHub Actions自动部署Hexo博客</title>
+      <link>https://lixiandea.github.io/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/</link>
+      <guid>https://lixiandea.github.io/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/</guid>
+      <pubDate>Tue, 12 May 2026 02:58:13 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;之前每次更新博客都要手动执行 &lt;code&gt;hexo clean &amp;amp;&amp;amp; hexo deploy&lt;/code&gt;，需要本地安装</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/hexo/">hexo</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/Hexo/">Hexo</category>
+      
+      <category domain="https://lixiandea.github.io/tags/GitHub-Actions/">GitHub Actions</category>
+      
+      <category domain="https://lixiandea.github.io/tags/CI-CD/">CI/CD</category>
+      
+      
+      <comments>https://lixiandea.github.io/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>使用Claude Code + 火山方舟Coding Plan自动写Hexo博客</title>
@@ -73,9 +104,9 @@
       <category domain="https://lixiandea.github.io/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/">读后感</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/">读后感</category>
-      
       <category domain="https://lixiandea.github.io/tags/%E4%BA%BA%E7%94%9F%E6%80%9D%E8%80%83/">人生思考</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/">读后感</category>
       
       
       <comments>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/#disqus_thread</comments>

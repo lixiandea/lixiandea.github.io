@@ -1,167 +1,276 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>spine优化 | lixiande的博客</title><meta name="author" content="Lixiande"><meta name="copyright" content="Lixiande"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="项目背景项目使用unity做游戏，并使用addressables方案管理资源，基于spine作为很多unity的骨骼动画实现方案，在我们的项目中有一些不合理的地方：  使用ScriptableObject作为桥接SkeletonData和Unity的方案，导致skel文件在加载完成之后不会卸载,这导致Spine动画很多的情况下会导致很多的Native资源占用; Spine动画使用的地方很多，但是大">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lixiandea.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="项目背景项目使用unity做游戏，并使用addressables方案管理资源，基于spine作为很多unity的骨骼动画实现方案，在我们的项目中有一些不合理的地方：  使用ScriptableObject作为桥接SkeletonData和Unity的方案，导致skel文件在加载完成之后不会卸载,这导致Spine动画很多的情况下会导致很多的Native资源占用; Spine动画使用的地方很多，但是大">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spine优化">
 <meta property="og:url" content="https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="lixiande的博客">
 <meta property="og:description" content="项目背景项目使用unity做游戏，并使用addressables方案管理资源，基于spine作为很多unity的骨骼动画实现方案，在我们的项目中有一些不合理的地方：  使用ScriptableObject作为桥接SkeletonData和Unity的方案，导致skel文件在加载完成之后不会卸载,这导致Spine动画很多的情况下会导致很多的Native资源占用; Spine动画使用的地方很多，但是大">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://avatars.githubusercontent.com/u/26404619?v=4">
 <meta property="article:published_time" content="2024-02-03T13:07:27.000Z">
-<meta property="article:modified_time" content="2026-05-12T02:51:28.183Z">
+<meta property="article:modified_time" content="2026-05-31T13:14:42.041Z">
 <meta property="article:author" content="Lixiande">
 <meta property="article:tag" content="unity游戏">
 <meta property="article:tag" content="spine">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/26404619?v=4"><script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "spine优化",
-  "url": "https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/",
-  "image": "https://avatars.githubusercontent.com/u/26404619?v=4",
-  "datePublished": "2024-02-03T13:07:27.000Z",
-  "dateModified": "2026-05-12T02:51:28.183Z",
-  "author": [
-    {
-      "@type": "Person",
-      "name": "Lixiande",
-      "url": "https://lixiandea.github.io"
-    }
-  ]
-}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.5-b1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
-    (() => {
-      
-    const saveToLocal = {
-      set: (key, value, ttl) => {
-        if (!ttl) return
-        const expiry = Date.now() + ttl * 86400000
-        localStorage.setItem(key, JSON.stringify({ value, expiry }))
-      },
-      get: key => {
-        const itemStr = localStorage.getItem(key)
-        if (!itemStr) return undefined
-        const { value, expiry } = JSON.parse(itemStr)
-        if (Date.now() > expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return value
-      }
-    }
 
-    window.btf = {
-      saveToLocal,
-      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
-        script.onload = script.onreadystatechange = () => {
-          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
-        }
-        script.onerror = reject
-        document.head.appendChild(script)
-      }),
-      getCSS: (url, id) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onload = link.onreadystatechange = () => {
-          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
-        }
-        link.onerror = reject
-        document.head.appendChild(link)
-      }),
-      addGlobalFn: (key, fn, name = false, parent = window) => {
-        if (!false && key.startsWith('pjax')) return
-        const globalFn = parent.globalFn || {}
-        globalFn[key] = globalFn[key] || {}
-        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
-        parent.globalFn = globalFn
-      }
-    }
+<link rel="canonical" href="https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>spine优化 | lixiande的博客</title>
   
-      
-      const activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      const activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
 
-      btf.activateDarkMode = activateDarkMode
-      btf.activateLightMode = activateLightMode
 
-      const theme = saveToLocal.get('theme')
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="lixiande的博客" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lixiande的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">打工</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-friends">
+
+    <a href="/friends/" rel="section"><i class="fa fa-link fa-fw"></i>friends</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
     
-          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
-        
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
-      }
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lixiandea" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
     
-      
-    const detectApple = () => {
-      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
   
-    })()
-  </script><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
-  copy: {
-    success: '复制成功',
-    error: '复制失败',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'null',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyloadPlugin: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'spine优化',
-  isHighlightShrink: false,
-  isToc: true,
-  pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/rss2.xml" title="lixiande的博客" type="application/rss+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://avatars.githubusercontent.com/u/26404619?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/friends/"><i class="fa-fw fas fa-link"></i><span> 其他人</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="https://avatars.githubusercontent.com/u/26404619?v=4" alt="Logo"><span class="site-name">lixiande的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">spine优化</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/friends/"><i class="fa-fw fas fa-link"></i><span> 其他人</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">spine优化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-02-03T13:07:27.000Z" title="发表于 2024-02-03 21:07:27">2024-02-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-12T02:51:28.183Z" title="更新于 2026-05-12 10:51:28">2026-05-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/unity%E6%B8%B8%E6%88%8F/">unity游戏</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>项目使用unity做游戏，并使用addressables方案管理资源，基于spine作为很多unity的骨骼动画实现方案，在我们的项目中有一些不合理的地方：</p>
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/26404619?v=4">
+      <meta itemprop="name" content="Lixiande">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lixiande的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          spine优化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-03 21:07:27" itemprop="dateCreated datePublished" datetime="2024-02-03T21:07:27+08:00">2024-02-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-05-31 21:14:42" itemprop="dateModified" datetime="2026-05-31T21:14:42+08:00">2026-05-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">技术文章</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/Unity%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Unity开发</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>项目使用unity做游戏，并使用addressables方案管理资源，基于spine作为很多unity的骨骼动画实现方案，在我们的项目中有一些不合理的地方：</p>
 <ol>
 <li>使用<code>ScriptableObject</code>作为桥接<code>SkeletonData</code>和<code>Unity</code>的方案，导致<code>skel</code>文件在加载完成之后不会卸载,这导致<code>Spine</code>动画很多的情况下会导致很多的<code>Native</code>资源占用;</li>
 <li><code>Spine</code>动画使用的地方很多，但是大部分时候只会播放一个动画;</li>
@@ -171,6 +280,8 @@
 <li>SkeletonData加载完成之后手动卸载<code>skel.bytes</code>文件;</li>
 <li>按照动画名字拆分<code>Spine</code>文件中的动画，按需加载<code>Spine</code>动画文件;</li>
 </ol>
+<span id="more"></span>
+
 <p>下面是具体实现</p>
 <h2 id="spine资源卸载"><a href="#spine资源卸载" class="headerlink" title="spine资源卸载"></a><code>spine</code>资源卸载</h2><blockquote>
 <p>该功能主要是针对skel文件加载完成之后不回收的问题</p>
@@ -186,4 +297,255 @@
 <p>由于项目中基本不会运行时加载<code>Spine</code>组件,而是加载spine组件时候通过代码控制播放的动画，因此劫持了Animation中的Timeline过程，在编辑器里面将<code>Skel</code> 文件拆分成头部和动画部分，懒加载<code>Animations</code>的部分内容，从而降低运行开销.</p>
 <h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p><code>Spine</code>的主要内存开销来自复杂的动画信息和曲线信息，在<code>Spine</code>文件组织结构里面,代码之间隔离性相当好,可以将这部分文件拆出来分别加载,这里仅将对应的<code>Animation</code>部分拆分出来,其他部分应该也是能拆分出来的部分.将动画拆出来并且写入按需读取动画文件的索引表.</p>
 <h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>通用库的开发会有很多的考量，适用性相较于部分的性能可能更是他们考虑的重点，对于很多库进行项目适应的调整是很有必要的。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://lixiandea.github.io">Lixiande</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/">https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://lixiandea.github.io" target="_blank">lixiande的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</a><a class="post-meta__tags" href="/tags/spine/">spine</a></div><div class="post-share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/26404619?v=4" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/02/05/unity%E6%8B%93%E5%B1%95%E7%BC%96%E8%BE%91%E5%99%A8/" title="unity拓展编辑器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">unity拓展编辑器</div></div><div class="info-2"><div class="info-item-1">&#x2F;&#x2F; TODO </div></div></div></a><a class="pagination-related" href="/2024/01/28/kafka%E5%AD%A6%E4%B9%A0/" title="kafka学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">kafka学习</div></div><div class="info-2"><div class="info-item-1">kafka 学习windows 上的 kafka 学习和安装相关的问题 一. 下载 kafkakafka 使用 java 实现并且官方提供了 windows 的支持,所以直接下载就完事了,将其解压到一个文件夹下,如我在 D:\kafka,这里版本是 3.20,其他版本可能会有点不同.整体路径如下,分别是  bin: 提供的一些已经写好了的 shell 命令文件和 windows 下面的 bat 文件 config: 一些已经配置好的文件,如 kafka server 的配置,zookeeper 的配置,consumer 和 producer 的配置 libs: jar 包和一些依赖 licenses: 开源协议证书   二. 启动 kafka 单实例激动人心的时刻来了,我们下载了文件,安装了 jdk 环境(一般都会有环境吧),然后设置 properties 文件,在这里我随便贴一下要注意的 properties 文件,定义了后面需要用的端口: 1234# file:config/server.propertieslisteners=PLAINTEXT://127.0.0.1:90...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/" title="lua数据劫持"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-28</div><div class="info-item-2">lua数据劫持</div></div><div class="info-2"><div class="info-item-1">vue proxy实现 之前尝试实现vue数据劫持，里面有一些方法实现不是很好，经过查阅lua.org，实现了基本操作的劫持； 基本数据类型lua作为一个脚本语言没有封装更多的数据结构，除了原生的number、string、boolean、数据结构，其他数据都是table，和js不同的是 table 没有区分出list和map两种，这里为了方便区分，封装了一个简单区分的方法 123456789101112131415---@param model tablefunction isArray(model)    -- 连续数据区长度大于0    return #model &gt; 0endfunction isMap(model)    local len = #model    -- 当len为0的时候 next会出错， 默认为true    if len == 0 then        return true    end    -- 除了array区域还有数据，则为map    return next(model, len) ~= nilend  有了这两个数据类型我们可...</div></div></div></a><a class="pagination-related" href="/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/" title="Lua实现数据拦截和简单的依赖收集"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-28</div><div class="info-item-2">Lua实现数据拦截和简单的依赖收集</div></div><div class="info-2"><div class="info-item-1">仿写 vue - 实现数据拦截和简单的依赖收集简单仿写 vue step1 拦截赋值和取值操作拦截数据访问和获取关系 123456789101112131415161718192021222324252627282930313233343536373839404142function newProxy(model)    local t = &#123;&#125;    local raw = &#123;&#125;    if type(model) ~= &quot;table&quot; then        return model    end    for k, v in pairs(model) do        raw[k] = newProxy(v)    end    setmetatable(t, &#123;        __index = function(t, key)            print(&quot;get key &quot; .. key)            return raw[key]        end,   ...</div></div></div></a><a class="pagination-related" href="/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/" title="unity微信小游戏wasm代码分析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-19</div><div class="info-item-2">unity微信小游戏wasm代码分析</div></div><div class="info-2"><div class="info-item-1">背景Unity WebGL生成的wasm过程是从C#代码经过IL2CPP转换成为C++代码，再由Emscripten编译成为wasm代码包。对于微信小游戏这种对包体大小敏感的平台，wasm代码包往往占据了大量的体积，而其中有不少并不合理的代码占用。 本文介绍如何获取wasm代码包，使用twiggy分析每个函数的内存大小，以及如何利用符号表将混淆后的函数名还原为C#方法名，从而精确定位每个C#代码的wasm占用情况。 一、获取wasm代码包1.1 从Unity构建产物获取Unity WebGL构建后，在构建输出目录中会生成以下关键文件：    文件 说明    Build/xxx.framework.js JavaScript框架文件   Build/xxx.wasm wasm代码包（本文分析目标）   Build/xxx.data 资源数据文件   Build/xxx.loader.js 加载器脚本   Build/xxx.symbols.json 调试符号文件（重要）   直接从构建产物中获取wasm文件即可进行分析。 1.2 从微信小游戏包获取微信小游戏的包体结构中，wasm...</div></div></div></a><a class="pagination-related" href="/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/" title="Addressables优化catalog文件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-19</div><div class="info-item-2">Addressables优化catalog文件</div></div><div class="info-2"><div class="info-item-1">unity使用Addressables进行资源管理很方便但是有一个很值得诟病的问题, 那就是catalog文件过大, 对于一个持续运营的项目来说catalog文件可能超过10M, 导致初始化Addressables时间较长, 峰值内存上涨明显.  本文通过分析catalog文件中主要的内容占用和内存开销, 提出一些可行的(已实践)方案. 一. catalog相关的开销分析catalog 开销主要来自两个部分:  初始化Addressables 的时间开销, 使用Addressables需要确保catalog 加载完成, 对于部分网络情况不佳的用户造成卡顿较长的体验; 加载catalog文件的内存开销, 使用json格式的Addressables加载时会产生两倍于自身大小的内存开销.  加载catalog的时间开销和网络情况密切相关, 实际测试下来一个1M的catalog文件经过传输和加载到内存, 整体时间超过1s. 主要的开销来源是文件的大小. 内存上的开销主要是加载文本本身和反序列化数据之后的结果上的内存开销. 1. catalog 本身大小开销分析catalog文件本身是一个...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/26404619?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Lixiande</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lixiandea"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">原神！启动！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">项目背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spine%E8%B5%84%E6%BA%90%E5%8D%B8%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">spine资源卸载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BDSpine%E5%8A%A8%E7%94%BB"><span class="toc-number">3.</span> <span class="toc-text">按需加载Spine动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="toc-number">3.1.</span> <span class="toc-text">实现思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.2.</span> <span class="toc-text">具体实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%9F%E6%83%B3"><span class="toc-number">4.</span> <span class="toc-text">感想</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/" title="使用GitHub Actions自动部署Hexo博客">使用GitHub Actions自动部署Hexo博客</a><time datetime="2026-05-12T02:58:13.000Z" title="发表于 2026-05-12 10:58:13">2026-05-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/" title="使用Claude Code + 火山方舟Coding Plan自动写Hexo博客">使用Claude Code + 火山方舟Coding Plan自动写Hexo博客</a><time datetime="2026-05-11T07:26:33.000Z" title="发表于 2026-05-11 15:26:33">2026-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/" title="26岁女房客读后感">26岁女房客读后感</a><time datetime="2024-03-20T07:22:19.000Z" title="发表于 2024-03-20 15:22:19">2024-03-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/04/2023%E7%9A%84%E6%80%9D%E8%80%83/" title="2023的思考">2023的思考</a><time datetime="2024-03-04T12:45:37.000Z" title="发表于 2024-03-04 20:45:37">2024-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/22/unity%E8%AE%BE%E7%BD%AEmaxSize%E5%87%8F%E5%B0%91%E5%9B%BE%E7%89%87%E5%86%85%E5%AD%98%E5%BC%80%E9%94%80/" title="unity设置maxSize减少图片内存开销">unity设置maxSize减少图片内存开销</a><time datetime="2024-02-22T07:08:17.000Z" title="发表于 2024-02-22 15:08:17">2024-02-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2026 By Lixiande</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.5-b1"></script><script src="/js/main.js?v=5.5.5-b1"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Lixiande
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/" title="spine优化">https://lixiandea.github.io/2024/02/03/spine优化/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/unity%E6%B8%B8%E6%88%8F/" rel="tag"># unity游戏</a>
+              <a href="/tags/spine/" rel="tag"># spine</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/01/28/kafka%E5%AD%A6%E4%B9%A0/" rel="prev" title="kafka学习">
+      <i class="fa fa-chevron-left"></i> kafka学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/02/05/unity%E6%8B%93%E5%B1%95%E7%BC%96%E8%BE%91%E5%99%A8/" rel="next" title="unity拓展编辑器">
+      unity拓展编辑器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">项目背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spine%E8%B5%84%E6%BA%90%E5%8D%B8%E8%BD%BD"><span class="nav-number">2.</span> <span class="nav-text">spine资源卸载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BDSpine%E5%8A%A8%E7%94%BB"><span class="nav-number">3.</span> <span class="nav-text">按需加载Spine动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">3.1.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.</span> <span class="nav-text">具体实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E6%83%B3"><span class="nav-number">4.</span> <span class="nav-text">感想</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lixiande"
+      src="https://avatars.githubusercontent.com/u/26404619?v=4">
+  <p class="site-author-name" itemprop="name">Lixiande</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lixiandea" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lixiandea" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lixiande</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

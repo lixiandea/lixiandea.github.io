@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lixiandea.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="背景之前我写过一篇《使用 Claude Code + 火山方舟 Coding Plan 自动写 Hexo 博客》，介绍了如何通过 LiteLLM 代理把 Claude Code 接到方舟模型上。那套方案能跑，但用下来越来越别扭，最后我彻底把 Claude Code 换成了 OpenCode。 这篇文章讲两件事：  为什么我要离开 Claude Code——它在「登录」「联网校验」「数据上报」这些地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="告别 Claude Code：用火山方舟 Coding Plan + OpenCode 搭建本地 AI 编程工作流">
+<meta property="og:url" content="https://lixiandea.github.io/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/index.html">
+<meta property="og:site_name" content="lixiande的博客">
+<meta property="og:description" content="背景之前我写过一篇《使用 Claude Code + 火山方舟 Coding Plan 自动写 Hexo 博客》，介绍了如何通过 LiteLLM 代理把 Claude Code 接到方舟模型上。那套方案能跑，但用下来越来越别扭，最后我彻底把 Claude Code 换成了 OpenCode。 这篇文章讲两件事：  为什么我要离开 Claude Code——它在「登录」「联网校验」「数据上报」这些地">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-25T06:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-25T13:06:59.620Z">
+<meta property="article:author" content="Lixiande">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="AI编程">
+<meta property="article:tag" content="火山方舟">
+<meta property="article:tag" content="OpenCode">
+<meta property="article:tag" content="AI工具">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lixiandea.github.io/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>告别 Claude Code：用火山方舟 Coding Plan + OpenCode 搭建本地 AI 编程工作流 | lixiande的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="lixiande的博客" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lixiande的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">打工</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-friends">
+
+    <a href="/friends/" rel="section"><i class="fa fa-link fa-fw"></i>friends</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lixiandea" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/26404619?v=4">
+      <meta itemprop="name" content="Lixiande">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lixiande的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          告别 Claude Code：用火山方舟 Coding Plan + OpenCode 搭建本地 AI 编程工作流
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-06-25 14:00:00 / 修改时间：21:06:59" itemprop="dateCreated datePublished" datetime="2026-06-25T14:00:00+08:00">2026-06-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">技术文章</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/AI%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">AI工具</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前我写过一篇<a href="/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/">《使用 Claude Code + 火山方舟 Coding Plan 自动写 Hexo 博客》</a>，介绍了如何通过 LiteLLM 代理把 Claude Code 接到方舟模型上。那套方案能跑，但用下来越来越别扭，最后我彻底把 Claude Code 换成了 <strong>OpenCode</strong>。</p>
+<p>这篇文章讲两件事：</p>
+<ol>
+<li>为什么我要离开 Claude Code——它在「登录」「联网校验」「数据上报」这些地方的做法实在让人无法忍受；</li>
+<li>如何用 OpenCode 直连火山方舟 Coding Plan，搭建一套干净、可控、无需代理的本地编程工作流。</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="严厉谴责：Claude-Code-到底做错了什么"><a href="#严厉谴责：Claude-Code-到底做错了什么" class="headerlink" title="严厉谴责：Claude Code 到底做错了什么"></a>严厉谴责：Claude Code 到底做错了什么</h2><p>Claude Code 作为一个<strong>命令行工具</strong>，本应该是「我给它密钥、它帮我干活」这么简单的关系。但实际体验完全不是这样，下面这些行为我必须明确批评。</p>
+<h3 id="1-强制登录，把开发工具绑成账号牢笼"><a href="#1-强制登录，把开发工具绑成账号牢笼" class="headerlink" title="1. 强制登录，把开发工具绑成账号牢笼"></a>1. 强制登录，把开发工具绑成账号牢笼</h3><p>一个本地 CLI 工具，凭什么要求我<strong>先登录账号</strong>才能用？</p>
+<ul>
+<li>即使你已经有合法的 API Key 或第三方网关，官方版本依然不断把你往「登录 Claude 账号 &#x2F; 订阅」的路径上引导；</li>
+<li>登录态、订阅校验和工具功能深度耦合，账号一旦异常，本地工具直接罢工；</li>
+<li>这本质上是<strong>把开发者工具变成账号的人质</strong>——你的生产力被绑定在它的账号体系上，而不是绑定在你自己的密钥和代码上。</li>
+</ul>
+<p>工具就该是工具。强制登录是在用「身份」绑架「能力」，这是第一条不可接受的地方。</p>
+<h3 id="2-频繁联网校验，离线环境直接瘫痪"><a href="#2-频繁联网校验，离线环境直接瘫痪" class="headerlink" title="2. 频繁联网校验，离线环境直接瘫痪"></a>2. 频繁联网校验，离线环境直接瘫痪</h3><p>Claude Code 在使用过程中会<strong>反复回连官方服务器</strong>做各种校验。带来的后果是：</p>
+<ul>
+<li>网络稍有波动，命令就卡住、超时、报错；</li>
+<li>在内网、隔离环境、弱网条件下几乎没法稳定工作；</li>
+<li>你根本不清楚每一次「校验」背后到底传了什么、传了多少。</li>
+</ul>
+<p>一个编程助手，本职工作是读代码、写代码、跑命令，<strong>不应该把「能不能联上官方服务器」当成能不能干活的前提</strong>。</p>
+<h3 id="3-不透明的数据发送与「邮件-通知」骚扰"><a href="#3-不透明的数据发送与「邮件-通知」骚扰" class="headerlink" title="3. 不透明的数据发送与「邮件 &#x2F; 通知」骚扰"></a>3. 不透明的数据发送与「邮件 &#x2F; 通知」骚扰</h3><p>最让人不安的是<strong>数据流向的不透明</strong>：</p>
+<ul>
+<li>工具会在你不完全知情的情况下向外发送遥测、使用统计、账号相关信息；</li>
+<li>各种账号通知、营销邮件、状态推送随之而来，<strong>你的邮箱成了它的广播渠道</strong>；</li>
+<li>对于在公司项目、私有仓库里使用的人来说，这种「默认上报 + 默认通知」的设计是<strong>实打实的合规与隐私风险</strong>。</li>
+</ul>
+<p>我用一个 CLI 写代码，不代表我同意把项目信息、使用行为打包发回去，更不代表我想收一堆邮件。<strong>默认就该是静默、本地、最小化数据</strong>，而不是反过来让用户去一项项关闭。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>强制登录、频繁联网校验、不透明的数据发送和邮件骚扰——这三点叠加，让 Claude Code 从一个「好用的工具」变成了一个「我必须时刻提防的工具」。对开发者来说，<strong>可控性和隐私</strong>比那一点点模型体验上的差异重要得多。所以我换到了 OpenCode。</p>
+<h2 id="为什么选-OpenCode"><a href="#为什么选-OpenCode" class="headerlink" title="为什么选 OpenCode"></a>为什么选 OpenCode</h2><p><a target="_blank" rel="noopener" href="https://opencode.ai/">OpenCode</a> 是一个开源的终端 AI 编程工具，定位和 Claude Code 类似，但在我最在意的几点上做得更好：</p>
+<ul>
+<li><strong>开源透明</strong>：代码公开，行为可审计，不存在「偷偷干了什么」的疑虑；</li>
+<li><strong>不强制登录</strong>：你只需要给它一个 API Key（或本地模型），不需要注册它家的账号；</li>
+<li><strong>原生支持 75+ 提供商</strong>：基于 <a target="_blank" rel="noopener" href="https://ai-sdk.dev/">AI SDK</a> 和 <a target="_blank" rel="noopener" href="https://models.dev/">Models.dev</a>，包括各种 OpenAI 兼容网关；</li>
+<li><strong>直连方舟，无需代理</strong>：火山方舟 Coding Plan 提供的是 OpenAI 兼容接口，OpenCode 可以直接对接，<strong>彻底干掉上一篇文章里的 LiteLLM 中间层</strong>；</li>
+<li><strong>配置即文件</strong>：所有配置都在 <code>opencode.json</code> 里，清清楚楚，可以纳入版本管理（注意别把密钥提交上去）。</li>
+</ul>
+<p>对比上一套 Claude Code + LiteLLM 方案，OpenCode 直连方舟少了一整个代理进程，少了一层协议转换，链路更短、更稳、更好排查。</p>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>相比之前「Claude Code → LiteLLM → 方舟」的三段式，OpenCode 的链路简单到几乎没有中间环节：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OpenCode CLI</span><br><span class="line">    │  (OpenAI 兼容格式，直接调用)</span><br><span class="line">    ▼</span><br><span class="line">火山方舟 Coding Plan API</span><br><span class="line">    │</span><br><span class="line">    ▼</span><br><span class="line">GLM / 豆包 / DeepSeek / Kimi 等模型</span><br></pre></td></tr></table></figure>
+
+<p>不需要 LiteLLM，不需要协议转换，不需要本地额外起一个代理端口。</p>
+<h2 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h2><h3 id="第一步：安装-OpenCode"><a href="#第一步：安装-OpenCode" class="headerlink" title="第一步：安装 OpenCode"></a>第一步：安装 OpenCode</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 推荐方式（macOS / Linux）</span></span><br><span class="line">curl -fsSL https://opencode.ai/install | bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或使用包管理器</span></span><br><span class="line">brew install sst/tap/opencode      <span class="comment"># macOS Homebrew</span></span><br><span class="line">npm install -g opencode-ai          <span class="comment"># npm 全局安装</span></span><br></pre></td></tr></table></figure>
+
+<p>安装完成后执行 <code>opencode --version</code> 确认可用。</p>
+<h3 id="第二步：获取火山方舟-Coding-Plan-的接入信息"><a href="#第二步：获取火山方舟-Coding-Plan-的接入信息" class="headerlink" title="第二步：获取火山方舟 Coding Plan 的接入信息"></a>第二步：获取火山方舟 Coding Plan 的接入信息</h3><ol>
+<li><p>登录<a target="_blank" rel="noopener" href="https://console.volcengine.com/ark">火山方舟控制台</a>；</p>
+</li>
+<li><p>开通 <strong>Coding Plan</strong>，在控制台获取 <strong>Coding Plan 专用的 API Key</strong>；</p>
+</li>
+<li><p>记录下 Coding Plan 的 Base URL，形如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://ark.cn-beijing.volces.com/api/coding/v3</span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>：方舟 Coding Plan 的具体模型列表、Base URL 和定价可能随时间变化，请以<a target="_blank" rel="noopener" href="https://www.volcengine.com/docs/82379">火山方舟官方文档</a>为准。</p>
+</blockquote>
+<h3 id="第三步：在-OpenCode-中配置方舟自定义-Provider"><a href="#第三步：在-OpenCode-中配置方舟自定义-Provider" class="headerlink" title="第三步：在 OpenCode 中配置方舟自定义 Provider"></a>第三步：在 OpenCode 中配置方舟自定义 Provider</h3><p>OpenCode 把任意 OpenAI 兼容服务都当作「自定义 Provider」处理，使用 <code>@ai-sdk/openai-compatible</code> 这个 npm 包即可。</p>
+<p>编辑 <code>~/.config/opencode/opencode.json</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://opencode.ai/config.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;model&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volcengine-plan/glm-5.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;provider&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;volcengine-plan&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;npm&quot;</span><span class="punctuation">:</span> <span class="string">&quot;@ai-sdk/openai-compatible&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Volcano Engine&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;options&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;baseURL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://ark.cn-beijing.volces.com/api/coding/v3&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;apiKey&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;env:ARK_API_KEY&#125;&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;models&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;glm-5.2&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;glm-5.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;limit&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;context&quot;</span><span class="punctuation">:</span> <span class="number">1024000</span><span class="punctuation">,</span> <span class="attr">&quot;output&quot;</span><span class="punctuation">:</span> <span class="number">4096</span> <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;doubao-seed-code&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;doubao-seed-code&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;limit&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;context&quot;</span><span class="punctuation">:</span> <span class="number">256000</span><span class="punctuation">,</span> <span class="attr">&quot;output&quot;</span><span class="punctuation">:</span> <span class="number">4096</span> <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;deepseek-v4-pro&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;deepseek-v4-pro&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;limit&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;context&quot;</span><span class="punctuation">:</span> <span class="number">1024000</span><span class="punctuation">,</span> <span class="attr">&quot;output&quot;</span><span class="punctuation">:</span> <span class="number">4096</span> <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;kimi-k2.7-code&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;kimi-k2.7-code&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;limit&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;context&quot;</span><span class="punctuation">:</span> <span class="number">256000</span><span class="punctuation">,</span> <span class="attr">&quot;output&quot;</span><span class="punctuation">:</span> <span class="number">4096</span> <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>关键字段说明：</p>
+<ul>
+<li><code>provider.volcengine-plan</code>：自定义 Provider 的 ID，名字随意，但要和顶层 <code>model</code> 的前缀对应；</li>
+<li><code>npm</code>：固定用 <code>@ai-sdk/openai-compatible</code>，OpenCode 会用它走 OpenAI 协议；</li>
+<li><code>options.baseURL</code>：方舟 Coding Plan 的接口地址；</li>
+<li><code>options.apiKey</code>：<strong>用 <code>&#123;env:ARK_API_KEY&#125;</code> 从环境变量读取，绝对不要硬编码真实密钥</strong>；</li>
+<li><code>models</code>：列出你要用的模型及其上下文 &#x2F; 输出上限，模型名即方舟侧的模型 ID；</li>
+<li>顶层 <code>model</code>：设置默认模型，格式为 <code>&lt;provider-id&gt;/&lt;model-id&gt;</code>，例如 <code>volcengine-plan/glm-5.2</code>。</li>
+</ul>
+<h3 id="第四步：通过环境变量注入密钥"><a href="#第四步：通过环境变量注入密钥" class="headerlink" title="第四步：通过环境变量注入密钥"></a>第四步：通过环境变量注入密钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 临时使用</span></span><br><span class="line"><span class="built_in">export</span> ARK_API_KEY=<span class="string">&quot;你的方舟 Coding Plan API Key&quot;</span></span><br><span class="line">opencode</span><br></pre></td></tr></table></figure>
+
+<p>推荐用 <a target="_blank" rel="noopener" href="https://direnv.net/">direnv</a> 在项目目录自动加载，避免每次手动 <code>export</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在项目根目录创建 .env（确保已被 gitignore）</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export ARK_API_KEY=你的方舟API Key&#x27;</span> &gt; .<span class="built_in">env</span></span><br><span class="line"><span class="comment"># 创建 .envrc</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;source_env .env&#x27;</span> &gt; .envrc</span><br><span class="line">direnv allow</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>安全提醒</strong>：OpenCode 的 <code>opencode.json</code> 是纯文本配置，很容易被同步到 Git 或 dotfiles 仓库。<strong>千万不要把真实 <code>apiKey</code> 直接写在 <code>options.apiKey</code> 里</strong>，一律用 <code>&#123;env:...&#125;</code> 引用环境变量。</p>
+</blockquote>
+<h3 id="第五步：验证并选择模型"><a href="#第五步：验证并选择模型" class="headerlink" title="第五步：验证并选择模型"></a>第五步：验证并选择模型</h3><p>启动后用内置命令确认一切就绪：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opencode</span><br></pre></td></tr></table></figure>
+
+<p>进入 TUI 后：</p>
+<ul>
+<li>输入 <code>/models</code>，应该能看到 <code>Volcano Engine</code> 下列出的所有模型；</li>
+<li>选择 <code>glm-5.2</code>（或你常用的模型）；</li>
+<li>随便提个需求测试一下，比如「列出当前目录结构并解释项目用途」。</li>
+</ul>
+<h2 id="用-OpenCode-写-Hexo-博客"><a href="#用-OpenCode-写-Hexo-博客" class="headerlink" title="用 OpenCode 写 Hexo 博客"></a>用 OpenCode 写 Hexo 博客</h2><p>迁移完成后，写博客的流程和之前几乎一样，只是把 <code>claude</code> 命令换成了 <code>opencode</code>。</p>
+<h3 id="创建新文章"><a href="#创建新文章" class="headerlink" title="创建新文章"></a>创建新文章</h3><p>在 Hexo 项目目录下启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/hexo_source_file</span><br><span class="line">opencode</span><br></pre></td></tr></table></figure>
+
+<p>然后用自然语言描述需求：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">帮我创建一篇关于 Unity Addressables 资源管理最佳实践的博客，</span><br><span class="line">包括资源分组策略、内存优化和加载性能调优三个方面</span><br></pre></td></tr></table></figure>
+
+<p>OpenCode 会读取项目里的 <code>AGENTS.md</code> &#x2F; <code>CLAUDE.md</code> 约定，按照你现有博客的风格创建文章、填好 Front Matter 并生成内容。</p>
+<blockquote>
+<p><strong>提示</strong>：OpenCode 默认读取项目根目录的 <code>AGENTS.md</code>（也兼容 <code>CLAUDE.md</code>）作为项目规则。把「永久链接格式」「文章目录」「写作风格」「安全规则」写进去，可以让生成结果更稳定。</p>
+</blockquote>
+<h3 id="本地预览与部署"><a href="#本地预览与部署" class="headerlink" title="本地预览与部署"></a>本地预览与部署</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">创建一篇关于 Lua 热更新方案对比的博客，然后执行 hexo server 让我本地预览</span><br></pre></td></tr></table></figure>
+
+<p>确认无误后：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">帮我执行 hexo deploy 部署博客</span><br></pre></td></tr></table></figure>
+
+<h2 id="Claude-Code-vs-OpenCode-对比"><a href="#Claude-Code-vs-OpenCode-对比" class="headerlink" title="Claude Code vs OpenCode 对比"></a>Claude Code vs OpenCode 对比</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Claude Code</th>
+<th>OpenCode</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>是否强制登录</td>
+<td>强引导登录 &#x2F; 订阅</td>
+<td>不需要，给 Key 即用</td>
+</tr>
+<tr>
+<td>接方舟 Coding Plan</td>
+<td>需要 LiteLLM 代理转协议</td>
+<td>原生直连，无需代理</td>
+</tr>
+<tr>
+<td>配置方式</td>
+<td>散落在环境变量 &#x2F; settings.json</td>
+<td>集中在 <code>opencode.json</code></td>
+</tr>
+<tr>
+<td>数据 &#x2F; 遥测</td>
+<td>不透明、默认上报</td>
+<td>开源可审计</td>
+</tr>
+<tr>
+<td>链路复杂度</td>
+<td>CLI → 代理 → 方舟</td>
+<td>CLI → 方舟</td>
+</tr>
+</tbody></table>
+<h2 id="安全清单（务必照做）"><a href="#安全清单（务必照做）" class="headerlink" title="安全清单（务必照做）"></a>安全清单（务必照做）</h2><p>无论用哪个工具，密钥安全的底线都不能松：</p>
+<ol>
+<li><strong>密钥只走环境变量</strong>：配置文件里一律用 <code>&#123;env:ARK_API_KEY&#125;</code>，绝不硬编码；</li>
+<li><strong>gitignore 排除敏感文件</strong>：<code>.env</code>、<code>.envrc</code>、包含密钥的本地配置都要忽略；</li>
+<li><strong>检查你的全局配置</strong>：<code>~/.config/opencode/opencode.json</code> 如果同步到了 dotfiles 仓库，确认里面没有明文 <code>apiKey</code>；</li>
+<li><strong>方舟侧加额度上限</strong>：为 Coding Plan 的 Key 设置调用额度，泄漏后也不至于产生高额费用；</li>
+<li><strong>定期轮换密钥</strong>。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从 Claude Code 迁移到 OpenCode，对我来说不只是换个工具，而是把「工具应该服从用户」这条原则重新拿回来：</p>
+<ul>
+<li>不被强制登录绑架；</li>
+<li>不被频繁联网校验拖累；</li>
+<li>不被默认上报和邮件骚扰侵犯隐私；</li>
+<li>还顺手干掉了 LiteLLM 代理，直连方舟 Coding Plan，链路更短更稳。</li>
+</ul>
+<p>如果你也在用方舟 Coding Plan，并且受够了 Claude Code 那套账号 + 上报的玩法，OpenCode 值得一试。<strong>核心原则不变：密钥永远只通过环境变量传递，绝不出现在代码、配置文件或 Git 仓库中。</strong></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Lixiande
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lixiandea.github.io/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/" title="告别 Claude Code：用火山方舟 Coding Plan + OpenCode 搭建本地 AI 编程工作流">https://lixiandea.github.io/2026/06/25/告别Claude-Code-用火山方舟Coding-Plan和OpenCode搭建本地AI编程工作流/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Claude-Code/" rel="tag"># Claude Code</a>
+              <a href="/tags/AI%E7%BC%96%E7%A8%8B/" rel="tag"># AI编程</a>
+              <a href="/tags/%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9F/" rel="tag"># 火山方舟</a>
+              <a href="/tags/OpenCode/" rel="tag"># OpenCode</a>
+              <a href="/tags/AI%E5%B7%A5%E5%85%B7/" rel="tag"># AI工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/05/17/Unity-MCP%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97-%E8%AE%A9AI%E6%8E%A7%E5%88%B6Unity%E7%BC%96%E8%BE%91%E5%99%A8/" rel="prev" title="Unity MCP安装指南：让AI控制Unity编辑器">
+      <i class="fa fa-chevron-left"></i> Unity MCP安装指南：让AI控制Unity编辑器
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A5%E5%8E%89%E8%B0%B4%E8%B4%A3%EF%BC%9AClaude-Code-%E5%88%B0%E5%BA%95%E5%81%9A%E9%94%99%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">严厉谴责：Claude Code 到底做错了什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BC%BA%E5%88%B6%E7%99%BB%E5%BD%95%EF%BC%8C%E6%8A%8A%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%BB%91%E6%88%90%E8%B4%A6%E5%8F%B7%E7%89%A2%E7%AC%BC"><span class="nav-number">2.1.</span> <span class="nav-text">1. 强制登录，把开发工具绑成账号牢笼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%A2%91%E7%B9%81%E8%81%94%E7%BD%91%E6%A0%A1%E9%AA%8C%EF%BC%8C%E7%A6%BB%E7%BA%BF%E7%8E%AF%E5%A2%83%E7%9B%B4%E6%8E%A5%E7%98%AB%E7%97%AA"><span class="nav-number">2.2.</span> <span class="nav-text">2. 频繁联网校验，离线环境直接瘫痪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%B8%8D%E9%80%8F%E6%98%8E%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%91%E9%80%81%E4%B8%8E%E3%80%8C%E9%82%AE%E4%BB%B6-%E9%80%9A%E7%9F%A5%E3%80%8D%E9%AA%9A%E6%89%B0"><span class="nav-number">2.3.</span> <span class="nav-text">3. 不透明的数据发送与「邮件 &#x2F; 通知」骚扰</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">2.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89-OpenCode"><span class="nav-number">3.</span> <span class="nav-text">为什么选 OpenCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E6%AD%A5%E9%AA%A4"><span class="nav-number">5.</span> <span class="nav-text">迁移步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%AE%89%E8%A3%85-OpenCode"><span class="nav-number">5.1.</span> <span class="nav-text">第一步：安装 OpenCode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%8E%B7%E5%8F%96%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9F-Coding-Plan-%E7%9A%84%E6%8E%A5%E5%85%A5%E4%BF%A1%E6%81%AF"><span class="nav-number">5.2.</span> <span class="nav-text">第二步：获取火山方舟 Coding Plan 的接入信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%9C%A8-OpenCode-%E4%B8%AD%E9%85%8D%E7%BD%AE%E6%96%B9%E8%88%9F%E8%87%AA%E5%AE%9A%E4%B9%89-Provider"><span class="nav-number">5.3.</span> <span class="nav-text">第三步：在 OpenCode 中配置方舟自定义 Provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E9%80%9A%E8%BF%87%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5%E5%AF%86%E9%92%A5"><span class="nav-number">5.4.</span> <span class="nav-text">第四步：通过环境变量注入密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E9%AA%8C%E8%AF%81%E5%B9%B6%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.5.</span> <span class="nav-text">第五步：验证并选择模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8-OpenCode-%E5%86%99-Hexo-%E5%8D%9A%E5%AE%A2"><span class="nav-number">6.</span> <span class="nav-text">用 OpenCode 写 Hexo 博客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E6%96%87%E7%AB%A0"><span class="nav-number">6.1.</span> <span class="nav-text">创建新文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88%E4%B8%8E%E9%83%A8%E7%BD%B2"><span class="nav-number">6.2.</span> <span class="nav-text">本地预览与部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Claude-Code-vs-OpenCode-%E5%AF%B9%E6%AF%94"><span class="nav-number">7.</span> <span class="nav-text">Claude Code vs OpenCode 对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%B8%85%E5%8D%95%EF%BC%88%E5%8A%A1%E5%BF%85%E7%85%A7%E5%81%9A%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">安全清单（务必照做）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lixiande"
+      src="https://avatars.githubusercontent.com/u/26404619?v=4">
+  <p class="site-author-name" itemprop="name">Lixiande</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lixiandea" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lixiandea" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lixiande</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

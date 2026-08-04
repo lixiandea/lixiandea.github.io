@@ -15,8 +15,43 @@
     <atom:link href="https://lixiandea.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 04 Aug 2026 06:33:51 GMT</pubDate>
+    <pubDate>Tue, 04 Aug 2026 07:00:26 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>游戏开发面试感悟：从装箱拆箱到 AI 编程</title>
+      <link>https://lixiandea.github.io/2026/08/04/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E6%84%9F%E6%82%9F-%E4%BB%8E%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1%E5%88%B0AI%E7%BC%96%E7%A8%8B/</link>
+      <guid>https://lixiandea.github.io/2026/08/04/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E6%84%9F%E6%82%9F-%E4%BB%8E%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1%E5%88%B0AI%E7%BC%96%E7%A8%8B/</guid>
+      <pubDate>Tue, 04 Aug 2026 20:00:00 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;最近面了几家游戏公司，岗位是游戏开发。面试聊到的问题挺有意思，一半是”老本行”C# 底子，一半是”新玩法”AI 编程——比如 RAG 和渐进式披露的区别、Spec-Driven 的 AI 编程模式。整理一下这次面试聊到的四个问题，以及我对现在行业里 AI 编程的一些感悟。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/AI%E5%B7%A5%E5%85%B7/">AI工具</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/Unity/">Unity</category>
+      
+      <category domain="https://lixiandea.github.io/tags/AI%E7%BC%96%E7%A8%8B/">AI编程</category>
+      
+      <category domain="https://lixiandea.github.io/tags/C/">C#</category>
+      
+      <category domain="https://lixiandea.github.io/tags/GC/">GC</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E9%9D%A2%E8%AF%95/">面试</category>
+      
+      <category domain="https://lixiandea.github.io/tags/RAG/">RAG</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">大模型</category>
+      
+      
+      <comments>https://lixiandea.github.io/2026/08/04/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E6%84%9F%E6%82%9F-%E4%BB%8E%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1%E5%88%B0AI%E7%BC%96%E7%A8%8B/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>告别 Token：用 SSH Deploy Key 自动部署 Hexo 博客</title>
@@ -517,9 +552,9 @@
       <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
-      
       <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
       
       
       <comments>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/#disqus_thread</comments>
@@ -543,38 +578,12 @@
       <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
-      
       <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
       
       
       <comments>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>缓存设计</title>
-      <link>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/</link>
-      <guid>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/</guid>
-      <pubDate>Sun, 28 Jan 2024 11:21:36 GMT</pubDate>
-      
-      <description>&lt;p&gt;缓存设计&lt;/p&gt;
-&lt;p&gt;在读多写少的服务中，可以通过缓存将一些代价较为高昂的请求结果保存，比如对数据库的读取请求或者一些复杂操作结果进行保留，实现较高的性能。因而缓存是一个比较通用但是又效果良好的手段去增强我们的服务性能。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
-      
-      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/">后端技术</category>
-      
-      
-      <category domain="https://lixiandea.github.io/tags/%E9%9D%A2%E8%AF%95/">面试</category>
-      
-      <category domain="https://lixiandea.github.io/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">系统设计</category>
-      
-      
-      <comments>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/#disqus_thread</comments>
       
     </item>
     

@@ -15,8 +15,41 @@
     <atom:link href="https://lixiandea.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 04 Aug 2026 03:51:40 GMT</pubDate>
+    <pubDate>Tue, 04 Aug 2026 03:57:11 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>告别 Token：用 SSH Deploy Key 自动部署 Hexo 博客</title>
+      <link>https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/</link>
+      <guid>https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/</guid>
+      <pubDate>Tue, 04 Aug 2026 12:00:00 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;这个博客的部署架构是典型的「双仓库」：源码在私有仓库 &lt;code&gt;lixiandea/hexo_source_file&lt;/code&gt;（&lt;code&gt;hexo&lt;/code&gt; 分支），推送到 GitHub Actions 后构建，再把 &lt;code&gt;public/&lt;/code&gt; 推到公开的 Pages 仓库 &lt;code&gt;lixiandea/lixiandea.github.io&lt;/code&gt;（&lt;code&gt;master&lt;/code&gt; 分支）上线。&lt;/p&gt;
+&lt;p&gt;这套架构里最麻烦的一点是：&lt;strong&gt;CI 要往另一个仓库推送&lt;/strong&gt;，而 GitHub Actions 自带的 &lt;code&gt;GITHUB_TOKEN&lt;/code&gt; 只能操作当前仓库，跨仓库推送必须额外携带凭据。之前工作流里用的是 &lt;code&gt;personal_token&lt;/code&gt;（Personal Access Token），但实际从没成功过——目标仓库里全是 &lt;code&gt;Site updated:&lt;/code&gt; 格式的提交（那是本地 &lt;code&gt;hexo deploy&lt;/code&gt; 推的），没有任何一条 &lt;code&gt;deploy:&lt;/code&gt; 提交。直到某次推送直接报 &lt;code&gt;The process &amp;#39;/usr/bin/git&amp;#39; failed with exit code 128&lt;/code&gt;，才暴露了 &lt;code&gt;DEPLOY_TOKEN&lt;/code&gt; 这个 secret 从未真正可用。&lt;/p&gt;
+&lt;p&gt;问题不是”要不要凭据”，而是”用什么凭据”。最后我选择了 &lt;strong&gt;SSH Deploy Key&lt;/strong&gt;，这篇文章讲清楚为什么、怎么做、以及有什么风险。&lt;/p&gt;</description>
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/CI-CD/">CI-CD</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/Hexo/">Hexo</category>
+      
+      <category domain="https://lixiandea.github.io/tags/GitHub-Actions/">GitHub-Actions</category>
+      
+      <category domain="https://lixiandea.github.io/tags/GitHub-Pages/">GitHub-Pages</category>
+      
+      <category domain="https://lixiandea.github.io/tags/CI-CD/">CI-CD</category>
+      
+      <category domain="https://lixiandea.github.io/tags/DevOps/">DevOps</category>
+      
+      
+      <comments>https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>告别 OpenCode：用 Codex 接入 DeepSeek 开放平台 API 搭建本地 AI 编程工作流</title>
@@ -169,9 +202,9 @@
       
       <category domain="https://lixiandea.github.io/tags/AI%E7%BC%96%E7%A8%8B/">AI编程</category>
       
-      <category domain="https://lixiandea.github.io/tags/%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9F/">火山方舟</category>
-      
       <category domain="https://lixiandea.github.io/tags/Hexo/">Hexo</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9F/">火山方舟</category>
       
       
       <comments>https://lixiandea.github.io/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/#disqus_thread</comments>
@@ -484,9 +517,9 @@
       <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
-      
       <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
       
       
       <comments>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/#disqus_thread</comments>
@@ -510,9 +543,9 @@
       <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
-      
       <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
+      
+      <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
       
       
       <comments>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/#disqus_thread</comments>
@@ -542,50 +575,6 @@
       
       
       <comments>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>detectron2 windows 安装过程</title>
-      <link>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</link>
-      <guid>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</guid>
-      <pubDate>Fri, 06 Dec 2019 10:19:55 GMT</pubDate>
-      
-      <description>&lt;h1 id=&quot;什么是detectron2&quot;&gt;&lt;a href=&quot;#什么是detectron2&quot; class=&quot;headerlink&quot; title=&quot;什么是detectron2&quot;&gt;&lt;/a&gt;什么是detectron2&lt;/h1&gt;&lt;p&gt;detectron2 是fair开发的目标检测、语义分割等的对比平台，集成了很多适合用来快速构建自己的目标检测、语义分割的模型和对应的预训练模型，但是官方文档里面只有linux和mac上的安装过程，虽然双系统很不错，但是还是windows能完成是最好的，所以这里介绍windows下需要进行的一些安装配置过程。总的来说分为以下几步：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;python安装&lt;/li&gt;
-&lt;li&gt;cuda和cudnn安装&lt;/li&gt;
-&lt;li&gt;pytorch 1.3安装&lt;/li&gt;
-&lt;li&gt;detectron2 windows安装&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;写在前面&lt;/strong&gt;：截止 2019 年 12 月，detectron2 官方并不支持 Windows 平台，源码中部分 CUDA 算子直接使用了 Linux 特有的写法，必须手工打 patch 才能编译通过。本文记录的就是在 Windows 10 下走通整套流程的方法，所有版本组合都是当时验证过能跑起来的最稳的一组。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;python-安装&quot;&gt;&lt;a href=&quot;#python-安装&quot; class=&quot;headerlink&quot; title=&quot;python 安装&quot;&gt;&lt;/a&gt;python 安装&lt;/h1&gt;&lt;p&gt;当然，windows上需要面对很多奇怪的库的配置，和虚拟环境的需求（虚拟环境真的很重要），所以我选择conda，我电脑上安装的是&lt;a href=&quot;https://www.anaconda.com/distribution/&quot;&gt;anaconda3.7&lt;/a&gt;的版本，基本上就是截止到目前最新的版本了。但是pytorch环境的版本还是选择了目前来说最为稳定的python3.6，说句实话，几年前配置caffe的时候让我认识到版本这个东西真的很重要，差一点就等同于没有环境。那么还是那样，先创建相应的环境，在此之前先检查一下conda有没有添加到路径中：&lt;code&gt;conda -v&lt;/code&gt;，若是报错就是没有把 conda 加到环境变量中，需要在「系统属性 → 环境变量 → Path」中加入 anaconda 安装目录下的 &lt;code&gt;Scripts/&lt;/code&gt; 和 &lt;code&gt;Library/bin/&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;创建并激活环境：&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;conda create -n detectron2 python=3.6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conda activate detectron2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;这里特意选 3.6 是因为 detectron2 的依赖（fvcore、pycocotools 的 Windows 分支等）在 3.6 上验证最充分；3.7 也能用，但偶尔会遇到一些预编译 wheel 不全的问题。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;cuda-和-cudnn-安装&quot;&gt;&lt;a href=&quot;#cuda-和-cudnn-安装&quot; class=&quot;headerlink&quot; title=&quot;cuda 和 cudnn 安装&quot;&gt;&lt;/a&gt;cuda 和 cudnn 安装&lt;/h1&gt;&lt;p&gt;PyTorch 1.3 官方 Windows wheel 提供 CUDA 9.2 &amp;#x2F; 10.1 两个版本，本文选 &lt;strong&gt;CUDA 10.1 + cuDNN 7.6&lt;/strong&gt;（对显卡驱动要求 ≥ 418.96，二十系卡和一千系卡都能跑）。&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
-      
-      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E5%B7%A5%E5%85%B7%E4%B8%8E%E7%8E%AF%E5%A2%83/">工具与环境</category>
-      
-      
-      <category domain="https://lixiandea.github.io/tags/detectron/">detectron</category>
-      
-      <category domain="https://lixiandea.github.io/tags/pytorch/">pytorch</category>
-      
-      <category domain="https://lixiandea.github.io/tags/windows/">windows</category>
-      
-      
-      <comments>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/#disqus_thread</comments>
       
     </item>
     

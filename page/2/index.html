@@ -199,6 +199,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/26404619?v=4">
+      <meta itemprop="name" content="Lixiande">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lixiande的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">unity微信小游戏wasm代码分析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-19 18:01:32" itemprop="dateCreated datePublished" datetime="2024-02-19T18:01:32+00:00">2024-02-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">技术文章</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/Unity%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Unity开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p><code>Unity WebGL</code>生成的<code>wasm</code>过程是从<code>C#</code>代码经过<code>IL2CPP</code>转换成为<code>C++</code>代码，再由<code>Emscripten</code>编译成为<code>wasm</code>代码包。对于微信小游戏这种对包体大小敏感的平台，<code>wasm</code>代码包往往占据了大量的体积，而其中有不少并不合理的代码占用。</p>
+<p>本文介绍如何获取<code>wasm</code>代码包，使用<a target="_blank" rel="noopener" href="https://github.com/rustwasm/twiggy">twiggy</a>分析每个函数的内存大小，以及如何利用符号表将混淆后的函数名还原为<code>C#</code>方法名，从而精确定位每个<code>C#</code>代码的<code>wasm</code>占用情况。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,7 +316,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -323,7 +409,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -408,7 +494,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -502,7 +588,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -587,7 +673,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -672,7 +758,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -757,7 +843,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -842,7 +928,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -928,7 +1014,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 03:57:11" itemprop="dateModified" datetime="2026-08-04T03:57:11+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -960,108 +1046,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/26404619?v=4">
-      <meta itemprop="name" content="Lixiande">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lixiande的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">detectron2 windows 安装过程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-06 10:19:55" itemprop="dateCreated datePublished" datetime="2019-12-06T10:19:55+00:00">2019-12-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">技术文章</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E5%B7%A5%E5%85%B7%E4%B8%8E%E7%8E%AF%E5%A2%83/" itemprop="url" rel="index"><span itemprop="name">工具与环境</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="什么是detectron2"><a href="#什么是detectron2" class="headerlink" title="什么是detectron2"></a>什么是detectron2</h1><p>detectron2 是fair开发的目标检测、语义分割等的对比平台，集成了很多适合用来快速构建自己的目标检测、语义分割的模型和对应的预训练模型，但是官方文档里面只有linux和mac上的安装过程，虽然双系统很不错，但是还是windows能完成是最好的，所以这里介绍windows下需要进行的一些安装配置过程。总的来说分为以下几步：</p>
-<ol>
-<li>python安装</li>
-<li>cuda和cudnn安装</li>
-<li>pytorch 1.3安装</li>
-<li>detectron2 windows安装</li>
-</ol>
-<blockquote>
-<p><strong>写在前面</strong>：截止 2019 年 12 月，detectron2 官方并不支持 Windows 平台，源码中部分 CUDA 算子直接使用了 Linux 特有的写法，必须手工打 patch 才能编译通过。本文记录的就是在 Windows 10 下走通整套流程的方法，所有版本组合都是当时验证过能跑起来的最稳的一组。</p>
-</blockquote>
-<h1 id="python-安装"><a href="#python-安装" class="headerlink" title="python 安装"></a>python 安装</h1><p>当然，windows上需要面对很多奇怪的库的配置，和虚拟环境的需求（虚拟环境真的很重要），所以我选择conda，我电脑上安装的是<a target="_blank" rel="noopener" href="https://www.anaconda.com/distribution/">anaconda3.7</a>的版本，基本上就是截止到目前最新的版本了。但是pytorch环境的版本还是选择了目前来说最为稳定的python3.6，说句实话，几年前配置caffe的时候让我认识到版本这个东西真的很重要，差一点就等同于没有环境。那么还是那样，先创建相应的环境，在此之前先检查一下conda有没有添加到路径中：<code>conda -v</code>，若是报错就是没有把 conda 加到环境变量中，需要在「系统属性 → 环境变量 → Path」中加入 anaconda 安装目录下的 <code>Scripts/</code> 和 <code>Library/bin/</code>。</p>
-<p>创建并激活环境：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda create -n detectron2 python=3.6</span><br><span class="line">conda activate detectron2</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>这里特意选 3.6 是因为 detectron2 的依赖（fvcore、pycocotools 的 Windows 分支等）在 3.6 上验证最充分；3.7 也能用，但偶尔会遇到一些预编译 wheel 不全的问题。</p>
-</blockquote>
-<h1 id="cuda-和-cudnn-安装"><a href="#cuda-和-cudnn-安装" class="headerlink" title="cuda 和 cudnn 安装"></a>cuda 和 cudnn 安装</h1><p>PyTorch 1.3 官方 Windows wheel 提供 CUDA 9.2 &#x2F; 10.1 两个版本，本文选 <strong>CUDA 10.1 + cuDNN 7.6</strong>（对显卡驱动要求 ≥ 418.96，二十系卡和一千系卡都能跑）。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1152,20 +1136,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

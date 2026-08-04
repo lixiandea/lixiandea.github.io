@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lixiandea.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="背景这个博客的部署架构是典型的「双仓库」：源码在私有仓库 lixiandea&#x2F;hexo_source_file（hexo 分支），推送到 GitHub Actions 后构建，再把 public&#x2F; 推到公开的 Pages 仓库 lixiandea&#x2F;lixiandea.github.io（master 分支）上线。 这套架构里最麻烦的一点是：CI 要往另一个仓库推送，而 GitHub Actions">
+<meta property="og:type" content="article">
+<meta property="og:title" content="告别 Token：用 SSH Deploy Key 自动部署 Hexo 博客">
+<meta property="og:url" content="https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="lixiande的博客">
+<meta property="og:description" content="背景这个博客的部署架构是典型的「双仓库」：源码在私有仓库 lixiandea&#x2F;hexo_source_file（hexo 分支），推送到 GitHub Actions 后构建，再把 public&#x2F; 推到公开的 Pages 仓库 lixiandea&#x2F;lixiandea.github.io（master 分支）上线。 这套架构里最麻烦的一点是：CI 要往另一个仓库推送，而 GitHub Actions">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-04T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-04T03:57:11.297Z">
+<meta property="article:author" content="Lixiande">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="GitHub-Actions">
+<meta property="article:tag" content="GitHub-Pages">
+<meta property="article:tag" content="CI-CD">
+<meta property="article:tag" content="DevOps">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>告别 Token：用 SSH Deploy Key 自动部署 Hexo 博客 | lixiande的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="lixiande的博客" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lixiande的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">打工</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-friends">
+
+    <a href="/friends/" rel="section"><i class="fa fa-link fa-fw"></i>friends</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/lixiandea" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/26404619?v=4">
+      <meta itemprop="name" content="Lixiande">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lixiande的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          告别 Token：用 SSH Deploy Key 自动部署 Hexo 博客
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-08-04 12:00:00 / 修改时间：03:57:11" itemprop="dateCreated datePublished" datetime="2026-08-04T12:00:00+00:00">2026-08-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">技术文章</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/CI-CD/" itemprop="url" rel="index"><span itemprop="name">CI-CD</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这个博客的部署架构是典型的「双仓库」：源码在私有仓库 <code>lixiandea/hexo_source_file</code>（<code>hexo</code> 分支），推送到 GitHub Actions 后构建，再把 <code>public/</code> 推到公开的 Pages 仓库 <code>lixiandea/lixiandea.github.io</code>（<code>master</code> 分支）上线。</p>
+<p>这套架构里最麻烦的一点是：<strong>CI 要往另一个仓库推送</strong>，而 GitHub Actions 自带的 <code>GITHUB_TOKEN</code> 只能操作当前仓库，跨仓库推送必须额外携带凭据。之前工作流里用的是 <code>personal_token</code>（Personal Access Token），但实际从没成功过——目标仓库里全是 <code>Site updated:</code> 格式的提交（那是本地 <code>hexo deploy</code> 推的），没有任何一条 <code>deploy:</code> 提交。直到某次推送直接报 <code>The process &#39;/usr/bin/git&#39; failed with exit code 128</code>，才暴露了 <code>DEPLOY_TOKEN</code> 这个 secret 从未真正可用。</p>
+<p>问题不是”要不要凭据”，而是”用什么凭据”。最后我选择了 <strong>SSH Deploy Key</strong>，这篇文章讲清楚为什么、怎么做、以及有什么风险。</p>
+<span id="more"></span>
+
+<h2 id="为什么不用-PAT，而用-Deploy-Key"><a href="#为什么不用-PAT，而用-Deploy-Key" class="headerlink" title="为什么不用 PAT，而用 Deploy Key"></a>为什么不用 PAT，而用 Deploy Key</h2><p>跨仓库推送的凭据有两种主流选择：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Personal Access Token</th>
+<th>SSH Deploy Key</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>权限范围</td>
+<td>账号级，<code>repo</code> scope 等于所有仓库</td>
+<td>只对指定仓库有效，且只授予 Contents 写权限</td>
+</tr>
+<tr>
+<td>泄露影响</td>
+<td>攻击者可读写你所有可见仓库</td>
+<td>只能改写这一个 Pages 仓库</td>
+</tr>
+<tr>
+<td>吊销方式</td>
+<td>在 Developer settings 里逐个管理</td>
+<td>在目标仓库 Deploy keys 里删掉即失效</td>
+</tr>
+<tr>
+<td>是否经过账号体系</td>
+<td>是，token 关联账号</td>
+<td>否，纯密钥对，不依赖账号登录态</td>
+</tr>
+<tr>
+<td>配置复杂度</td>
+<td>需要登录网页创建、配 scope</td>
+<td>本地生成密钥对，粘贴两次</td>
+</tr>
+</tbody></table>
+<p>PAT 最大的问题就是<strong>权限面过大</strong>：一个 <code>repo</code> scope 的 token 相当于把账号下所有仓库的读写权都交给了 CI。一旦这个 secret 泄露，攻击者拿到的不只是博客，而是你 GitHub 账号能看到的全部代码。Deploy Key 是一把”专钥专用”的钥匙：它只能推 <code>lixiandea.github.io</code>，就算泄露，损失也被锁死在这个仓库里。</p>
+<p>另一个现实原因是<strong>它真的能跑通</strong>：Deploy Key 走 SSH 协议，不依赖 token 的 scope 配置、过期时间、SSO 授权这些环节，配好就是好的。</p>
+<h2 id="怎么做：完整步骤"><a href="#怎么做：完整步骤" class="headerlink" title="怎么做：完整步骤"></a>怎么做：完整步骤</h2><h3 id="1-生成密钥对"><a href="#1-生成密钥对" class="headerlink" title="1. 生成密钥对"></a>1. 生成密钥对</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;github-actions-deploy&quot;</span> -f ~/.ssh/blog_deploy_key -N <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>生成两个文件：<code>~/.ssh/blog_deploy_key</code>（私钥）和 <code>~/.ssh/blog_deploy_key.pub</code>（公钥）。</p>
+<h3 id="2-公钥挂到目标仓库"><a href="#2-公钥挂到目标仓库" class="headerlink" title="2. 公钥挂到目标仓库"></a>2. 公钥挂到目标仓库</h3><p>打开 <code>lixiandea.github.io</code> → Settings → Deploy keys → <strong>Add deploy key</strong>：</p>
+<ul>
+<li>Title 随便写，比如 <code>github-actions-deploy</code>；</li>
+<li>Key 粘贴公钥内容；</li>
+<li><strong>必须勾选 Allow write access</strong>，否则只能读不能推。</li>
+</ul>
+<h3 id="3-私钥存为-Actions-secret"><a href="#3-私钥存为-Actions-secret" class="headerlink" title="3. 私钥存为 Actions secret"></a>3. 私钥存为 Actions secret</h3><p>打开 <code>hexo_source_file</code> → Settings → Secrets and variables → Actions → <strong>New repository secret</strong>：</p>
+<ul>
+<li>Name：<code>DEPLOY_KEY</code></li>
+<li>Secret：私钥<strong>完整内容</strong>（含 <code>-----BEGIN OPENSSH PRIVATE KEY-----</code> 头尾），可以 <code>cat ~/.ssh/blog_deploy_key</code> 复制。</li>
+</ul>
+<h3 id="4-修改-workflow"><a href="#4-修改-workflow" class="headerlink" title="4. 修改 workflow"></a>4. 修改 workflow</h3><p><code>.github/workflows/main.yml</code> 里把 <code>personal_token</code> 换成 <code>deploy_key</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v4</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">deploy_key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.DEPLOY_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">external_repository:</span> <span class="string">lixiandea/lixiandea.github.io</span></span><br><span class="line">    <span class="attr">publish_branch:</span> <span class="string">master</span></span><br><span class="line">    <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-验证"><a href="#5-验证" class="headerlink" title="5. 验证"></a>5. 验证</h3><p>先确认密钥被 GitHub 认可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T -i ~/.ssh/blog_deploy_key git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>返回 <code>Hi lixiandea/lixiandea.github.io! You&#39;ve successfully authenticated</code> 就说明公钥挂载成功。然后随便推送一次（或重跑失败的 run），去 <code>lixiandea.github.io</code> 的提交页看有没有 <code>deploy: ...</code> 开头的提交——有就说明 CI 走通了。</p>
+<h3 id="6-收尾"><a href="#6-收尾" class="headerlink" title="6. 收尾"></a>6. 收尾</h3><p>确认稳定后，把旧的 <code>DEPLOY_TOKEN</code> secret 删掉；本地私钥副本如果不再需要也删除，或移到 <code>~/.ssh/</code> 并 <code>chmod 600</code> 保管。</p>
+<h2 id="风险与注意事项"><a href="#风险与注意事项" class="headerlink" title="风险与注意事项"></a>风险与注意事项</h2><p>Deploy Key 方案不是银弹，几个点要心里有数：</p>
+<h3 id="1-私钥泄露-博客仓库被改写"><a href="#1-私钥泄露-博客仓库被改写" class="headerlink" title="1. 私钥泄露 &#x3D; 博客仓库被改写"></a>1. 私钥泄露 &#x3D; 博客仓库被改写</h3><p>拿到私钥的人可以随意推送内容到 <code>lixiandea.github.io</code>，相当于能控制你博客的展示内容（包括挂恶意脚本）。所以：</p>
+<ul>
+<li>私钥<strong>绝不</strong>提交到 Git、dotfiles 仓库或任何公开位置；</li>
+<li>不要把私钥内容贴在聊天记录、工单里；</li>
+<li>本地副本用完即删，或放进 <code>~/.ssh</code> 并收紧权限。</li>
+</ul>
+<h3 id="2-一旦怀疑泄露，立即吊销"><a href="#2-一旦怀疑泄露，立即吊销" class="headerlink" title="2. 一旦怀疑泄露，立即吊销"></a>2. 一旦怀疑泄露，立即吊销</h3><p>吊销 &#x3D; 在 <code>lixiandea.github.io</code> 的 Deploy keys 里删掉这把公钥，然后重新生成密钥对、更新 <code>DEPLOY_KEY</code> secret。整个过程几分钟，比吊销 PAT 简单，这也是选它的加分项。</p>
+<h3 id="3-secret-存进去就看不到了"><a href="#3-secret-存进去就看不到了" class="headerlink" title="3. secret 存进去就看不到了"></a>3. secret 存进去就看不到了</h3><p>GitHub 的 secret 只能写入，不能回显。如果私钥丢了又没留本地副本，只能重新生成一遍，没有”导出”选项。</p>
+<h3 id="4-一把-Deploy-Key-只绑一个仓库"><a href="#4-一把-Deploy-Key-只绑一个仓库" class="headerlink" title="4. 一把 Deploy Key 只绑一个仓库"></a>4. 一把 Deploy Key 只绑一个仓库</h3><p>Deploy Key 不能跨仓库复用。如果以后还有别的 Pages 仓库，需要再生成一把新的。这是刻意的——权限最小化。</p>
+<h3 id="5-每次-push-都会触发部署"><a href="#5-每次-push-都会触发部署" class="headerlink" title="5. 每次 push 都会触发部署"></a>5. 每次 push 都会触发部署</h3><p>工作流监听 <code>hexo</code> 分支，<strong>空提交也会触发</strong>（验证时我就是用空提交触发的）。调试 CI 时注意别制造无意义的提交；误推送后如果不想部署，只能等构建完再处理 Pages 仓库。</p>
+<h3 id="6-构建在-GitHub-托管-runner-上执行"><a href="#6-构建在-GitHub-托管-runner-上执行" class="headerlink" title="6. 构建在 GitHub 托管 runner 上执行"></a>6. 构建在 GitHub 托管 runner 上执行</h3><p>密钥会以 secret 形式注入 runner 环境，构建依赖（<code>npm ci</code>、克隆主题）也来自第三方。虽然 Deploy Key 权限被限制在单个仓库，但生产级 CI 仍建议固定 action 版本（目前是 <code>@v4</code> 标签），并留意依赖供应链变化。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>给”私密源码仓库 → 公开 Pages 仓库”的自动部署配凭据，原则就一句话：<strong>用最小权限的专钥，而不是账号级的 token</strong>。SSH Deploy Key 只对目标仓库有写权限、泄露可单点吊销、不经过账号体系，是这个场景下比 PAT 更可控的选择。配置成本只有”生成一次密钥、粘贴两次、改一行 workflow”，换来的是稳定可验证的自动部署和更小的爆炸半径。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Lixiande
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/" title="告别 Token：用 SSH Deploy Key 自动部署 Hexo 博客">https://lixiandea.github.io/2026/08/04/告别Token-用SSH-Deploy-Key自动部署Hexo博客/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/GitHub-Actions/" rel="tag"># GitHub-Actions</a>
+              <a href="/tags/GitHub-Pages/" rel="tag"># GitHub-Pages</a>
+              <a href="/tags/CI-CD/" rel="tag"># CI-CD</a>
+              <a href="/tags/DevOps/" rel="tag"># DevOps</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/08/03/%E5%91%8A%E5%88%ABOpenCode-%E7%94%A8Codex%E6%8E%A5%E5%85%A5DeepSeek%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0API%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/" rel="prev" title="告别 OpenCode：用 Codex 接入 DeepSeek 开放平台 API 搭建本地 AI 编程工作流">
+      <i class="fa fa-chevron-left"></i> 告别 OpenCode：用 Codex 接入 DeepSeek 开放平台 API 搭建本地 AI 编程工作流
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8-PAT%EF%BC%8C%E8%80%8C%E7%94%A8-Deploy-Key"><span class="nav-number">2.</span> <span class="nav-text">为什么不用 PAT，而用 Deploy Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%81%9A%EF%BC%9A%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">怎么做：完整步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="nav-number">3.1.</span> <span class="nav-text">1. 生成密钥对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%AC%E9%92%A5%E6%8C%82%E5%88%B0%E7%9B%AE%E6%A0%87%E4%BB%93%E5%BA%93"><span class="nav-number">3.2.</span> <span class="nav-text">2. 公钥挂到目标仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%A7%81%E9%92%A5%E5%AD%98%E4%B8%BA-Actions-secret"><span class="nav-number">3.3.</span> <span class="nav-text">3. 私钥存为 Actions secret</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BF%AE%E6%94%B9-workflow"><span class="nav-number">3.4.</span> <span class="nav-text">4. 修改 workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%AA%8C%E8%AF%81"><span class="nav-number">3.5.</span> <span class="nav-text">5. 验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%94%B6%E5%B0%BE"><span class="nav-number">3.6.</span> <span class="nav-text">6. 收尾</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A3%8E%E9%99%A9%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">风险与注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%A7%81%E9%92%A5%E6%B3%84%E9%9C%B2-%E5%8D%9A%E5%AE%A2%E4%BB%93%E5%BA%93%E8%A2%AB%E6%94%B9%E5%86%99"><span class="nav-number">4.1.</span> <span class="nav-text">1. 私钥泄露 &#x3D; 博客仓库被改写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%80%E6%97%A6%E6%80%80%E7%96%91%E6%B3%84%E9%9C%B2%EF%BC%8C%E7%AB%8B%E5%8D%B3%E5%90%8A%E9%94%80"><span class="nav-number">4.2.</span> <span class="nav-text">2. 一旦怀疑泄露，立即吊销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-secret-%E5%AD%98%E8%BF%9B%E5%8E%BB%E5%B0%B1%E7%9C%8B%E4%B8%8D%E5%88%B0%E4%BA%86"><span class="nav-number">4.3.</span> <span class="nav-text">3. secret 存进去就看不到了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%B8%80%E6%8A%8A-Deploy-Key-%E5%8F%AA%E7%BB%91%E4%B8%80%E4%B8%AA%E4%BB%93%E5%BA%93"><span class="nav-number">4.4.</span> <span class="nav-text">4. 一把 Deploy Key 只绑一个仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%AF%8F%E6%AC%A1-push-%E9%83%BD%E4%BC%9A%E8%A7%A6%E5%8F%91%E9%83%A8%E7%BD%B2"><span class="nav-number">4.5.</span> <span class="nav-text">5. 每次 push 都会触发部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%9E%84%E5%BB%BA%E5%9C%A8-GitHub-%E6%89%98%E7%AE%A1-runner-%E4%B8%8A%E6%89%A7%E8%A1%8C"><span class="nav-number">4.6.</span> <span class="nav-text">6. 构建在 GitHub 托管 runner 上执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lixiande"
+      src="https://avatars.githubusercontent.com/u/26404619?v=4">
+  <p class="site-author-name" itemprop="name">Lixiande</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lixiandea" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lixiandea" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lixiande</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

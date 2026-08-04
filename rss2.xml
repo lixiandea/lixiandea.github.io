@@ -15,7 +15,7 @@
     <atom:link href="https://lixiandea.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 04 Aug 2026 04:00:18 GMT</pubDate>
+    <pubDate>Tue, 04 Aug 2026 06:32:33 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -24,9 +24,8 @@
       <guid>https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/</guid>
       <pubDate>Tue, 04 Aug 2026 12:00:00 GMT</pubDate>
       
-      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;这个博客的部署架构是典型的「双仓库」：源码在私有仓库 &lt;code&gt;lixiandea/hexo_source_file&lt;/code&gt;（&lt;code&gt;hexo&lt;/code&gt; 分支），推送到 GitHub Actions 后构建，再把 &lt;code&gt;public/&lt;/code&gt; 推到公开的 Pages 仓库 &lt;code&gt;lixiandea/lixiandea.github.io&lt;/code&gt;（&lt;code&gt;master&lt;/code&gt; 分支）上线。&lt;/p&gt;
-&lt;p&gt;这套架构里最麻烦的一点是：&lt;strong&gt;CI 要往另一个仓库推送&lt;/strong&gt;，而 GitHub Actions 自带的 &lt;code&gt;GITHUB_TOKEN&lt;/code&gt; 只能操作当前仓库，跨仓库推送必须额外携带凭据。之前工作流里用的是 &lt;code&gt;personal_token&lt;/code&gt;（Personal Access Token），但实际从没成功过——目标仓库里全是 &lt;code&gt;Site updated:&lt;/code&gt; 格式的提交（那是本地 &lt;code&gt;hexo deploy&lt;/code&gt; 推的），没有任何一条 &lt;code&gt;deploy:&lt;/code&gt; 提交。直到某次推送直接报 &lt;code&gt;The process &amp;#39;/usr/bin/git&amp;#39; failed with exit code 128&lt;/code&gt;，才暴露了 &lt;code&gt;DEPLOY_TOKEN&lt;/code&gt; 这个 secret 从未真正可用。&lt;/p&gt;
-&lt;p&gt;问题不是”要不要凭据”，而是”用什么凭据”。最后我选择了 &lt;strong&gt;SSH Deploy Key&lt;/strong&gt;，这篇文章讲清楚为什么、怎么做、以及有什么风险。&lt;/p&gt;</description>
+      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;之前介绍过用 GitHub Actions 自动部署 Hexo 博客：源码推送到仓库，CI 构建出静态文件后推到 GitHub Pages 仓库，博客自动上线。这套「双仓库」架构（私密的源码仓库 + 公开的 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt; Pages 仓库）在跨仓库推送时有个绕不开的问题——GitHub Actions 自带的 &lt;code&gt;GITHUB_TOKEN&lt;/code&gt; 只能操作当前仓库，往 Pages 仓库推送必须额外携带凭据。&lt;/p&gt;
+&lt;p&gt;之前 workflow 里用的是 &lt;code&gt;personal_token&lt;/code&gt;（Personal Access Token），但某次推送后 CI 直接报 &lt;code&gt;The process &amp;#39;/usr/bin/git&amp;#39; failed with exit code 128&lt;/code&gt;，排查下来是跨仓库推送的凭据一直没真正可用。问题不是”要不要凭据”，而是”用什么凭据”。最后我换成了 &lt;strong&gt;SSH Deploy Key&lt;/strong&gt;，这篇文章讲清楚为什么、怎么做、以及有什么风险。&lt;/p&gt;</description>
       
       
       

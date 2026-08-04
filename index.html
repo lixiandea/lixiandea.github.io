@@ -199,6 +199,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2026/08/03/%E5%91%8A%E5%88%ABOpenCode-%E7%94%A8Codex%E6%8E%A5%E5%85%A5DeepSeek%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0API%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/26404619?v=4">
+      <meta itemprop="name" content="Lixiande">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lixiande的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/08/03/%E5%91%8A%E5%88%ABOpenCode-%E7%94%A8Codex%E6%8E%A5%E5%85%A5DeepSeek%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0API%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-title-link" itemprop="url">告别 OpenCode：用 Codex 接入 DeepSeek 开放平台 API 搭建本地 AI 编程工作流</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-08-03 12:00:00" itemprop="dateCreated datePublished" datetime="2026-08-03T12:00:00+00:00">2026-08-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">技术文章</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/AI%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">AI工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>上一篇<a href="/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/">《告别 Claude Code：用火山方舟 Coding Plan + OpenCode 搭建本地 AI 编程工作流》</a>里，我从 Claude Code 换到了 OpenCode。但用了两个月，我又把 OpenCode 换成了 <strong>Codex</strong>，模型侧也从方舟 Coding Plan 换成了 <strong>DeepSeek 开放平台的 API Key</strong>。</p>
+<p>这篇文章讲两件事：</p>
+<ol>
+<li>为什么从 OpenCode 切到 Codex；</li>
+<li>如何用 DeepSeek 开放平台的 API Key 把 Codex 接起来——DeepSeek 现在<strong>原生支持 Responses API</strong>，官方提供一键接入脚本，不需要任何代理。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/08/03/%E5%91%8A%E5%88%ABOpenCode-%E7%94%A8Codex%E6%8E%A5%E5%85%A5DeepSeek%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0API%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -222,10 +312,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2026-06-25 14:00:00 / 修改时间：21:06:59" itemprop="dateCreated datePublished" datetime="2026-06-25T14:00:00+08:00">2026-06-25</time>
+              <time title="创建时间：2026-06-25 14:00:00" itemprop="dateCreated datePublished" datetime="2026-06-25T14:00:00+00:00">2026-06-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -307,14 +403,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2026-05-17 10:00:00" itemprop="dateCreated datePublished" datetime="2026-05-17T10:00:00+08:00">2026-05-17</time>
+              <time title="创建时间：2026-05-17 10:00:00" itemprop="dateCreated datePublished" datetime="2026-05-17T10:00:00+00:00">2026-05-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 21:14:56" itemprop="dateModified" datetime="2026-05-31T21:14:56+08:00">2026-05-31</time>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -394,14 +490,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2026-05-12 10:58:13" itemprop="dateCreated datePublished" datetime="2026-05-12T10:58:13+08:00">2026-05-12</time>
+              <time title="创建时间：2026-05-12 10:58:13" itemprop="dateCreated datePublished" datetime="2026-05-12T10:58:13+00:00">2026-05-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 21:15:38" itemprop="dateModified" datetime="2026-05-31T21:15:38+08:00">2026-05-31</time>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -479,14 +575,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2026-05-11 15:26:33" itemprop="dateCreated datePublished" datetime="2026-05-11T15:26:33+08:00">2026-05-11</time>
+              <time title="创建时间：2026-05-11 15:26:33" itemprop="dateCreated datePublished" datetime="2026-05-11T15:26:33+00:00">2026-05-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 21:15:26" itemprop="dateModified" datetime="2026-05-31T21:15:26+08:00">2026-05-31</time>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -565,14 +661,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-03-20 15:22:19" itemprop="dateCreated datePublished" datetime="2024-03-20T15:22:19+08:00">2024-03-20</time>
+              <time title="创建时间：2024-03-20 15:22:19" itemprop="dateCreated datePublished" datetime="2024-03-20T15:22:19+00:00">2024-03-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 21:13:16" itemprop="dateModified" datetime="2026-05-31T21:13:16+08:00">2026-05-31</time>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -658,14 +754,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-03-04 20:45:37" itemprop="dateCreated datePublished" datetime="2024-03-04T20:45:37+08:00">2024-03-04</time>
+              <time title="创建时间：2024-03-04 20:45:37" itemprop="dateCreated datePublished" datetime="2024-03-04T20:45:37+00:00">2024-03-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 21:13:16" itemprop="dateModified" datetime="2026-05-31T21:13:16+08:00">2026-05-31</time>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -750,14 +846,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-02-22 15:08:17" itemprop="dateCreated datePublished" datetime="2024-02-22T15:08:17+08:00">2024-02-22</time>
+              <time title="创建时间：2024-02-22 15:08:17" itemprop="dateCreated datePublished" datetime="2024-02-22T15:08:17+00:00">2024-02-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 12:22:24" itemprop="dateModified" datetime="2026-05-31T12:22:24+08:00">2026-05-31</time>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -827,14 +923,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-02-22 11:43:12" itemprop="dateCreated datePublished" datetime="2024-02-22T11:43:12+08:00">2024-02-22</time>
+              <time title="创建时间：2024-02-22 11:43:12" itemprop="dateCreated datePublished" datetime="2024-02-22T11:43:12+00:00">2024-02-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 12:23:41" itemprop="dateModified" datetime="2026-05-31T12:23:41+08:00">2026-05-31</time>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -904,14 +1000,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2024-02-19 18:01:32" itemprop="dateCreated datePublished" datetime="2024-02-19T18:01:32+08:00">2024-02-19</time>
+              <time title="创建时间：2024-02-19 18:01:32" itemprop="dateCreated datePublished" datetime="2024-02-19T18:01:32+00:00">2024-02-19</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 21:15:07" itemprop="dateModified" datetime="2026-05-31T21:15:07+08:00">2026-05-31</time>
+                <time title="修改时间：2026-08-04 03:51:40" itemprop="dateModified" datetime="2026-08-04T03:51:40+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -943,99 +1039,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lixiandea.github.io/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/26404619?v=4">
-      <meta itemprop="name" content="Lixiande">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lixiande的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Addressables优化catalog文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-19 14:47:06" itemprop="dateCreated datePublished" datetime="2024-02-19T14:47:06+08:00">2024-02-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-05-31 21:13:16" itemprop="dateModified" datetime="2026-05-31T21:13:16+08:00">2026-05-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">技术文章</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/Unity%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">Unity开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>unity</code>使用<code>Addressables</code>进行资源管理很方便但是有一个很值得诟病的问题, 那就是<code>catalog</code>文件过大, 对于一个持续运营的项目来说<code>catalog</code>文件可能超过10M, 导致初始化<code>Addressables</code>时间较长, 峰值内存上涨明显. </p>
-<p>本文通过分析<code>catalog</code>文件中主要的内容占用和内存开销, 提出一些可行的(已实践)方案.</p>
-<h1 id="一-catalog相关的开销分析"><a href="#一-catalog相关的开销分析" class="headerlink" title="一. catalog相关的开销分析"></a>一. <code>catalog</code>相关的开销分析</h1><p><code>catalog</code> 开销主要来自两个部分:</p>
-<ol>
-<li>初始化<code>Addressables</code> 的时间开销, 使用<code>Addressables</code>需要确保<code>catalog</code> 加载完成, 对于部分网络情况不佳的用户造成卡顿较长的体验;</li>
-<li>加载<code>catalog</code>文件的内存开销, 使用<code>json</code>格式的<code>Addressables</code>加载时会产生两倍于自身大小的内存开销.</li>
-</ol>
-<p>加载<code>catalog</code>的时间开销和网络情况密切相关, 实际测试下来一个<code>1M</code>的<code>catalog</code>文件经过传输和加载到内存, 整体时间超过<code>1s</code>. 主要的开销来源是文件的大小.</p>
-<p>内存上的开销主要是加载文本本身和反序列化数据之后的结果上的内存开销.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1126,7 +1129,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1139,7 +1142,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

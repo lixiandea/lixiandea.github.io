@@ -15,14 +15,50 @@
     <atom:link href="https://lixiandea.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Thu, 25 Jun 2026 13:06:59 GMT</pubDate>
+    <pubDate>Tue, 04 Aug 2026 03:51:40 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>告别 OpenCode：用 Codex 接入 DeepSeek 开放平台 API 搭建本地 AI 编程工作流</title>
+      <link>https://lixiandea.github.io/2026/08/03/%E5%91%8A%E5%88%ABOpenCode-%E7%94%A8Codex%E6%8E%A5%E5%85%A5DeepSeek%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0API%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/</link>
+      <guid>https://lixiandea.github.io/2026/08/03/%E5%91%8A%E5%88%ABOpenCode-%E7%94%A8Codex%E6%8E%A5%E5%85%A5DeepSeek%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0API%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/</guid>
+      <pubDate>Mon, 03 Aug 2026 12:00:00 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;上一篇&lt;a href=&quot;/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/&quot;&gt;《告别 Claude Code：用火山方舟 Coding Plan + OpenCode 搭建本地 AI 编程工作流》&lt;/a&gt;里，我从 Claude Code 换到了 OpenCode。但用了两个月，我又把 OpenCode 换成了 &lt;strong&gt;Codex&lt;/strong&gt;，模型侧也从方舟 Coding Plan 换成了 &lt;strong&gt;DeepSeek 开放平台的 API Key&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这篇文章讲两件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;为什么从 OpenCode 切到 Codex；&lt;/li&gt;
+&lt;li&gt;如何用 DeepSeek 开放平台的 API Key 把 Codex 接起来——DeepSeek 现在&lt;strong&gt;原生支持 Responses API&lt;/strong&gt;，官方提供一键接入脚本，不需要任何代理。&lt;/li&gt;
+&lt;/ol&gt;</description>
+      
+      
+      
+      
+      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/AI%E5%B7%A5%E5%85%B7/">AI工具</category>
+      
+      
+      <category domain="https://lixiandea.github.io/tags/AI%E7%BC%96%E7%A8%8B/">AI编程</category>
+      
+      <category domain="https://lixiandea.github.io/tags/OpenCode/">OpenCode</category>
+      
+      <category domain="https://lixiandea.github.io/tags/AI%E5%B7%A5%E5%85%B7/">AI工具</category>
+      
+      <category domain="https://lixiandea.github.io/tags/Codex/">Codex</category>
+      
+      <category domain="https://lixiandea.github.io/tags/DeepSeek/">DeepSeek</category>
+      
+      
+      <comments>https://lixiandea.github.io/2026/08/03/%E5%91%8A%E5%88%ABOpenCode-%E7%94%A8Codex%E6%8E%A5%E5%85%A5DeepSeek%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0API%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>告别 Claude Code：用火山方舟 Coding Plan + OpenCode 搭建本地 AI 编程工作流</title>
       <link>https://lixiandea.github.io/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/</link>
       <guid>https://lixiandea.github.io/2026/06/25/%E5%91%8A%E5%88%ABClaude-Code-%E7%94%A8%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E5%92%8COpenCode%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0AI%E7%BC%96%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%B5%81/</guid>
-      <pubDate>Thu, 25 Jun 2026 06:00:00 GMT</pubDate>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 GMT</pubDate>
       
       <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;之前我写过一篇&lt;a href=&quot;/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/&quot;&gt;《使用 Claude Code + 火山方舟 Coding Plan 自动写 Hexo 博客》&lt;/a&gt;，介绍了如何通过 LiteLLM 代理把 Claude Code 接到方舟模型上。那套方案能跑，但用下来越来越别扭，最后我彻底把 Claude Code 换成了 &lt;strong&gt;OpenCode&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;这篇文章讲两件事：&lt;/p&gt;
@@ -58,7 +94,7 @@
       <title>Unity MCP安装指南：让AI控制Unity编辑器</title>
       <link>https://lixiandea.github.io/2026/05/17/Unity-MCP%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97-%E8%AE%A9AI%E6%8E%A7%E5%88%B6Unity%E7%BC%96%E8%BE%91%E5%99%A8/</link>
       <guid>https://lixiandea.github.io/2026/05/17/Unity-MCP%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97-%E8%AE%A9AI%E6%8E%A7%E5%88%B6Unity%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
-      <pubDate>Sun, 17 May 2026 02:00:00 GMT</pubDate>
+      <pubDate>Sun, 17 May 2026 10:00:00 GMT</pubDate>
       
       <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;Unity开发中有很多重复性操作：创建GameObject、调整材质、管理场景层级……如果能用自然语言让AI帮你做这些事，效率会提升很多。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/CoplayDev/unity-mcp&quot;&gt;MCP for Unity&lt;/a&gt; 就是这样一个桥梁——它通过 MCP（Model Context Protocol）协议把 AI 助手（Claude Code、Cursor 等）和 Unity 编辑器连接起来，让 AI 可以直接操控你的 Unity 项目。&lt;/p&gt;
@@ -89,7 +125,7 @@
       <title>使用GitHub Actions自动部署Hexo博客</title>
       <link>https://lixiandea.github.io/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/</link>
       <guid>https://lixiandea.github.io/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/</guid>
-      <pubDate>Tue, 12 May 2026 02:58:13 GMT</pubDate>
+      <pubDate>Tue, 12 May 2026 10:58:13 GMT</pubDate>
       
       <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;之前每次更新博客都要手动执行 &lt;code&gt;hexo clean &amp;amp;&amp;amp; hexo deploy&lt;/code&gt;，需要本地安装 Node.js 和项目依赖，换台电脑就很不方便。将部署流程整合到 GitHub Actions 后，只需要把文章推送到仓库，CI 会自动构建并部署到 GitHub Pages。&lt;/p&gt;</description>
       
@@ -116,7 +152,7 @@
       <title>使用Claude Code + 火山方舟Coding Plan自动写Hexo博客</title>
       <link>https://lixiandea.github.io/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/</link>
       <guid>https://lixiandea.github.io/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/</guid>
-      <pubDate>Mon, 11 May 2026 07:26:33 GMT</pubDate>
+      <pubDate>Mon, 11 May 2026 15:26:33 GMT</pubDate>
       
       <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;写博客是个好习惯，但每次都要花大量时间组织内容、排版、调整格式，很容易劝退。如果能用AI工具自动生成博客内容，同时保证质量，那效率就能提升很多。&lt;/p&gt;
 &lt;p&gt;本文介绍如何使用 &lt;strong&gt;Claude Code&lt;/strong&gt;（Anthropic推出的AI编程CLI工具）配合 &lt;strong&gt;火山方舟Coding Plan&lt;/strong&gt;，搭建一套自动化写Hexo博客的工作流，并重点讲解如何避免API Key泄漏。&lt;/p&gt;</description>
@@ -146,7 +182,7 @@
       <title>26岁女房客读后感</title>
       <link>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
       <guid>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
-      <pubDate>Wed, 20 Mar 2024 07:22:19 GMT</pubDate>
+      <pubDate>Wed, 20 Mar 2024 15:22:19 GMT</pubDate>
       
       <description>&lt;p&gt;近期读完了《我的26岁女房客》这本书，这是一部都市情感小说，讲的是男主昭阳——一个颓废的苏州青年，在人生低谷期与四个截然不同的女性之间的情感纠葛，最终不断抉择、成长，走向女主的故事。里面关于男主和四个女主的情感故事覆盖了很多现实生活中恋爱的种类：&lt;/p&gt;
 &lt;ul&gt;
@@ -166,9 +202,9 @@
       <category domain="https://lixiandea.github.io/categories/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/">读后感</category>
-      
       <category domain="https://lixiandea.github.io/tags/%E4%BA%BA%E7%94%9F%E6%80%9D%E8%80%83/">人生思考</category>
+      
+      <category domain="https://lixiandea.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/">读后感</category>
       
       
       <comments>https://lixiandea.github.io/2024/03/20/26%E5%B2%81%E5%A5%B3%E6%88%BF%E5%AE%A2%E8%AF%BB%E5%90%8E%E6%84%9F/#disqus_thread</comments>
@@ -179,7 +215,7 @@
       <title>2023的思考</title>
       <link>https://lixiandea.github.io/2024/03/04/2023%E7%9A%84%E6%80%9D%E8%80%83/</link>
       <guid>https://lixiandea.github.io/2024/03/04/2023%E7%9A%84%E6%80%9D%E8%80%83/</guid>
-      <pubDate>Mon, 04 Mar 2024 12:45:37 GMT</pubDate>
+      <pubDate>Mon, 04 Mar 2024 20:45:37 GMT</pubDate>
       
       <description>&lt;p&gt;2023年过去了，这是我第一次完整在一个公司度过一年，这一年我身上发生了很多的变化：&lt;/p&gt;
 &lt;ol&gt;
@@ -209,7 +245,7 @@
       <title>unity设置maxSize减少图片内存开销</title>
       <link>https://lixiandea.github.io/2024/02/22/unity%E8%AE%BE%E7%BD%AEmaxSize%E5%87%8F%E5%B0%91%E5%9B%BE%E7%89%87%E5%86%85%E5%AD%98%E5%BC%80%E9%94%80/</link>
       <guid>https://lixiandea.github.io/2024/02/22/unity%E8%AE%BE%E7%BD%AEmaxSize%E5%87%8F%E5%B0%91%E5%9B%BE%E7%89%87%E5%86%85%E5%AD%98%E5%BC%80%E9%94%80/</guid>
-      <pubDate>Thu, 22 Feb 2024 07:08:17 GMT</pubDate>
+      <pubDate>Thu, 22 Feb 2024 15:08:17 GMT</pubDate>
       
       
       
@@ -228,7 +264,7 @@
       <title>coze使用体验</title>
       <link>https://lixiandea.github.io/2024/02/22/coze%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</link>
       <guid>https://lixiandea.github.io/2024/02/22/coze%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</guid>
-      <pubDate>Thu, 22 Feb 2024 03:43:12 GMT</pubDate>
+      <pubDate>Thu, 22 Feb 2024 11:43:12 GMT</pubDate>
       
       
       
@@ -247,7 +283,7 @@
       <title>unity微信小游戏wasm代码分析</title>
       <link>https://lixiandea.github.io/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/</link>
       <guid>https://lixiandea.github.io/2024/02/19/unity%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8Fwasm%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/</guid>
-      <pubDate>Mon, 19 Feb 2024 10:01:32 GMT</pubDate>
+      <pubDate>Mon, 19 Feb 2024 18:01:32 GMT</pubDate>
       
       <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Unity WebGL&lt;/code&gt;生成的&lt;code&gt;wasm&lt;/code&gt;过程是从&lt;code&gt;C#&lt;/code&gt;代码经过&lt;code&gt;IL2CPP&lt;/code&gt;转换成为&lt;code&gt;C++&lt;/code&gt;代码，再由&lt;code&gt;Emscripten&lt;/code&gt;编译成为&lt;code&gt;wasm&lt;/code&gt;代码包。对于微信小游戏这种对包体大小敏感的平台，&lt;code&gt;wasm&lt;/code&gt;代码包往往占据了大量的体积，而其中有不少并不合理的代码占用。&lt;/p&gt;
 &lt;p&gt;本文介绍如何获取&lt;code&gt;wasm&lt;/code&gt;代码包，使用&lt;a href=&quot;https://github.com/rustwasm/twiggy&quot;&gt;twiggy&lt;/a&gt;分析每个函数的内存大小，以及如何利用符号表将混淆后的函数名还原为&lt;code&gt;C#&lt;/code&gt;方法名，从而精确定位每个&lt;code&gt;C#&lt;/code&gt;代码的&lt;code&gt;wasm&lt;/code&gt;占用情况。&lt;/p&gt;</description>
@@ -275,7 +311,7 @@
       <title>Addressables优化catalog文件</title>
       <link>https://lixiandea.github.io/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/</link>
       <guid>https://lixiandea.github.io/2024/02/19/Addressables%E4%BC%98%E5%8C%96catalog%E6%96%87%E4%BB%B6/</guid>
-      <pubDate>Mon, 19 Feb 2024 06:47:06 GMT</pubDate>
+      <pubDate>Mon, 19 Feb 2024 14:47:06 GMT</pubDate>
       
       <description>&lt;p&gt;&lt;code&gt;unity&lt;/code&gt;使用&lt;code&gt;Addressables&lt;/code&gt;进行资源管理很方便但是有一个很值得诟病的问题, 那就是&lt;code&gt;catalog&lt;/code&gt;文件过大, 对于一个持续运营的项目来说&lt;code&gt;catalog&lt;/code&gt;文件可能超过10M, 导致初始化&lt;code&gt;Addressables&lt;/code&gt;时间较长, 峰值内存上涨明显. &lt;/p&gt;
 &lt;p&gt;本文通过分析&lt;code&gt;catalog&lt;/code&gt;文件中主要的内容占用和内存开销, 提出一些可行的(已实践)方案.&lt;/p&gt;
@@ -308,7 +344,7 @@
       <title>unity拓展编辑器</title>
       <link>https://lixiandea.github.io/2024/02/05/unity%E6%8B%93%E5%B1%95%E7%BC%96%E8%BE%91%E5%99%A8/</link>
       <guid>https://lixiandea.github.io/2024/02/05/unity%E6%8B%93%E5%B1%95%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
-      <pubDate>Mon, 05 Feb 2024 09:07:43 GMT</pubDate>
+      <pubDate>Mon, 05 Feb 2024 17:07:43 GMT</pubDate>
       
       <description>&lt;p&gt;&amp;#x2F;&amp;#x2F; TODO&lt;/p&gt;</description>
       
@@ -329,7 +365,7 @@
       <title>spine优化</title>
       <link>https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/</link>
       <guid>https://lixiandea.github.io/2024/02/03/spine%E4%BC%98%E5%8C%96/</guid>
-      <pubDate>Sat, 03 Feb 2024 13:07:27 GMT</pubDate>
+      <pubDate>Sat, 03 Feb 2024 21:07:27 GMT</pubDate>
       
       <description>&lt;h2 id=&quot;项目背景&quot;&gt;&lt;a href=&quot;#项目背景&quot; class=&quot;headerlink&quot; title=&quot;项目背景&quot;&gt;&lt;/a&gt;项目背景&lt;/h2&gt;&lt;p&gt;项目使用unity做游戏，并使用addressables方案管理资源，基于spine作为很多unity的骨骼动画实现方案，在我们的项目中有一些不合理的地方：&lt;/p&gt;
 &lt;ol&gt;
@@ -363,7 +399,7 @@
       <title>kafka学习</title>
       <link>https://lixiandea.github.io/2024/01/28/kafka%E5%AD%A6%E4%B9%A0/</link>
       <guid>https://lixiandea.github.io/2024/01/28/kafka%E5%AD%A6%E4%B9%A0/</guid>
-      <pubDate>Sun, 28 Jan 2024 03:25:46 GMT</pubDate>
+      <pubDate>Sun, 28 Jan 2024 11:25:46 GMT</pubDate>
       
       <description>&lt;h1 id=&quot;kafka-学习&quot;&gt;&lt;a href=&quot;#kafka-学习&quot; class=&quot;headerlink&quot; title=&quot;kafka 学习&quot;&gt;&lt;/a&gt;kafka 学习&lt;/h1&gt;&lt;p&gt;windows 上的 kafka 学习和安装相关的问题&lt;/p&gt;</description>
       
@@ -386,7 +422,7 @@
       <title>goStringBuilder使用</title>
       <link>https://lixiandea.github.io/2024/01/28/goStringBuilder%E4%BD%BF%E7%94%A8/</link>
       <guid>https://lixiandea.github.io/2024/01/28/goStringBuilder%E4%BD%BF%E7%94%A8/</guid>
-      <pubDate>Sun, 28 Jan 2024 03:22:39 GMT</pubDate>
+      <pubDate>Sun, 28 Jan 2024 11:22:39 GMT</pubDate>
       
       <description>&lt;h1 id=&quot;go-strings-Builder-使用&quot;&gt;&lt;a href=&quot;#go-strings-Builder-使用&quot; class=&quot;headerlink&quot; title=&quot;go strings.Builder 使用&quot;&gt;&lt;/a&gt;go strings.Builder 使用&lt;/h1&gt;</description>
       
@@ -411,7 +447,7 @@
       <title>从三色旗到快排</title>
       <link>https://lixiandea.github.io/2024/01/28/%E4%BB%8E%E4%B8%89%E8%89%B2%E6%97%97%E5%88%B0%E5%BF%AB%E6%8E%92/</link>
       <guid>https://lixiandea.github.io/2024/01/28/%E4%BB%8E%E4%B8%89%E8%89%B2%E6%97%97%E5%88%B0%E5%BF%AB%E6%8E%92/</guid>
-      <pubDate>Sun, 28 Jan 2024 03:22:05 GMT</pubDate>
+      <pubDate>Sun, 28 Jan 2024 11:22:05 GMT</pubDate>
       
       <description>&lt;h1 id=&quot;从三色旗到快排&quot;&gt;&lt;a href=&quot;#从三色旗到快排&quot; class=&quot;headerlink&quot; title=&quot;从三色旗到快排&quot;&gt;&lt;/a&gt;从三色旗到快排&lt;/h1&gt;</description>
       
@@ -436,7 +472,7 @@
       <title>Lua实现数据拦截和简单的依赖收集</title>
       <link>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/</link>
       <guid>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/</guid>
-      <pubDate>Sun, 28 Jan 2024 03:21:57 GMT</pubDate>
+      <pubDate>Sun, 28 Jan 2024 11:21:57 GMT</pubDate>
       
       <description>&lt;h1 id=&quot;仿写-vue-实现数据拦截和简单的依赖收集&quot;&gt;&lt;a href=&quot;#仿写-vue-实现数据拦截和简单的依赖收集&quot; class=&quot;headerlink&quot; title=&quot;仿写 vue - 实现数据拦截和简单的依赖收集&quot;&gt;&lt;/a&gt;仿写 vue - 实现数据拦截和简单的依赖收集&lt;/h1&gt;&lt;p&gt;简单仿写 vue&lt;/p&gt;</description>
       
@@ -448,9 +484,9 @@
       <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
-      
       <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
       
       
       <comments>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/#disqus_thread</comments>
@@ -461,7 +497,7 @@
       <title>lua数据劫持</title>
       <link>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/</link>
       <guid>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/</guid>
-      <pubDate>Sun, 28 Jan 2024 03:21:45 GMT</pubDate>
+      <pubDate>Sun, 28 Jan 2024 11:21:45 GMT</pubDate>
       
       <description>&lt;p&gt;&lt;code&gt;vue proxy&lt;/code&gt;实现&lt;/p&gt;
 &lt;p&gt;之前尝试实现&lt;code&gt;vue&lt;/code&gt;数据劫持，里面有一些方法实现不是很好，经过查阅&lt;a href=&quot;https://www.lua.org/&quot;&gt;lua.org&lt;/a&gt;，实现了基本操作的劫持；&lt;/p&gt;</description>
@@ -474,9 +510,9 @@
       <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
-      
       <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
       
       
       <comments>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/#disqus_thread</comments>
@@ -487,7 +523,7 @@
       <title>缓存设计</title>
       <link>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/</link>
       <guid>https://lixiandea.github.io/2024/01/28/%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/</guid>
-      <pubDate>Sun, 28 Jan 2024 03:21:36 GMT</pubDate>
+      <pubDate>Sun, 28 Jan 2024 11:21:36 GMT</pubDate>
       
       <description>&lt;p&gt;缓存设计&lt;/p&gt;
 &lt;p&gt;在读多写少的服务中，可以通过缓存将一些代价较为高昂的请求结果保存，比如对数据库的读取请求或者一些复杂操作结果进行保留，实现较高的性能。因而缓存是一个比较通用但是又效果良好的手段去增强我们的服务性能。&lt;/p&gt;</description>
@@ -513,7 +549,7 @@
       <title>detectron2 windows 安装过程</title>
       <link>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</link>
       <guid>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</guid>
-      <pubDate>Fri, 06 Dec 2019 02:19:55 GMT</pubDate>
+      <pubDate>Fri, 06 Dec 2019 10:19:55 GMT</pubDate>
       
       <description>&lt;h1 id=&quot;什么是detectron2&quot;&gt;&lt;a href=&quot;#什么是detectron2&quot; class=&quot;headerlink&quot; title=&quot;什么是detectron2&quot;&gt;&lt;/a&gt;什么是detectron2&lt;/h1&gt;&lt;p&gt;detectron2 是fair开发的目标检测、语义分割等的对比平台，集成了很多适合用来快速构建自己的目标检测、语义分割的模型和对应的预训练模型，但是官方文档里面只有linux和mac上的安装过程，虽然双系统很不错，但是还是windows能完成是最好的，所以这里介绍windows下需要进行的一些安装配置过程。总的来说分为以下几步：&lt;/p&gt;
 &lt;ol&gt;
@@ -550,30 +586,6 @@
       
       
       <comments>https://lixiandea.github.io/2019/12/06/detectron-windows-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>My first hexo blog about how to deploy hexo</title>
-      <link>https://lixiandea.github.io/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/</link>
-      <guid>https://lixiandea.github.io/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/</guid>
-      <pubDate>Thu, 05 Dec 2019 15:20:00 GMT</pubDate>
-      
-      <description>&lt;h1 id=&quot;为什么写博客、&quot;&gt;&lt;a href=&quot;#为什么写博客、&quot; class=&quot;headerlink&quot; title=&quot;为什么写博客、&quot;&gt;&lt;/a&gt;为什么写博客、&lt;/h1&gt;&lt;p&gt;在学生生活中，无聊是最为恐怖的事情，那么怎么避免太过无聊的事情呢，当然是写点什么记录自己的生活，但是日记又太过无聊（我的字丑），而跟风写一下博客就还行。&lt;/p&gt;
-&lt;h1 id=&quot;怎么配置hexo博客&quot;&gt;&lt;a href=&quot;#怎么配置hexo博客&quot; class=&quot;headerlink&quot; title=&quot;怎么配置hexo博客&quot;&gt;&lt;/a&gt;怎么配置hexo博客&lt;/h1&gt;&lt;p&gt;写博客当然是要找一个教程比较多，起点低的方法，其中hexo博客要求很低（windows下面，有一个github账号就可以完成相应的配置），其次hexo的工作流也是一个和未来找工作比较相关工作流（git流程），所以使用hexo进行相应的配置。下面是正式配置过程&lt;/p&gt;</description>
-      
-      
-      
-      
-      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
-      
-      <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</category>
-      
-      
-      <category domain="https://lixiandea.github.io/tags/%E9%85%8D%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%9A%84hexo%E5%8D%9A%E5%AE%A2/">配置自己的hexo博客</category>
-      
-      
-      <comments>https://lixiandea.github.io/2019/12/05/My-first-hexo-blog-about-how-to-deploy-hexo/#disqus_thread</comments>
       
     </item>
     

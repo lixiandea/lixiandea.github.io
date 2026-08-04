@@ -15,7 +15,7 @@
     <atom:link href="https://lixiandea.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 04 Aug 2026 03:57:11 GMT</pubDate>
+    <pubDate>Tue, 04 Aug 2026 04:00:18 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -202,9 +202,9 @@
       
       <category domain="https://lixiandea.github.io/tags/AI%E7%BC%96%E7%A8%8B/">AI编程</category>
       
-      <category domain="https://lixiandea.github.io/tags/Hexo/">Hexo</category>
-      
       <category domain="https://lixiandea.github.io/tags/%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9F/">火山方舟</category>
+      
+      <category domain="https://lixiandea.github.io/tags/Hexo/">Hexo</category>
       
       
       <comments>https://lixiandea.github.io/2026/05/11/%E4%BD%BF%E7%94%A8Claude-Code-%E5%92%8C%E7%81%AB%E5%B1%B1%E6%96%B9%E8%88%9FCoding-Plan%E8%87%AA%E5%8A%A8%E5%86%99Hexo%E5%8D%9A%E5%AE%A2/#disqus_thread</comments>
@@ -517,9 +517,9 @@
       <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
-      
       <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
       
       
       <comments>https://lixiandea.github.io/2024/01/28/Lua%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8B%A6%E6%88%AA%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/#disqus_thread</comments>
@@ -543,9 +543,9 @@
       <category domain="https://lixiandea.github.io/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</category>
       
       
-      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
-      
       <category domain="https://lixiandea.github.io/tags/unity%E6%B8%B8%E6%88%8F/">unity游戏</category>
+      
+      <category domain="https://lixiandea.github.io/tags/lua/">lua</category>
       
       
       <comments>https://lixiandea.github.io/2024/01/28/lua%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81/#disqus_thread</comments>

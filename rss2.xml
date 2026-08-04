@@ -15,7 +15,7 @@
     <atom:link href="https://lixiandea.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 04 Aug 2026 06:32:33 GMT</pubDate>
+    <pubDate>Tue, 04 Aug 2026 06:33:51 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -24,8 +24,9 @@
       <guid>https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/</guid>
       <pubDate>Tue, 04 Aug 2026 12:00:00 GMT</pubDate>
       
-      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;之前介绍过用 GitHub Actions 自动部署 Hexo 博客：源码推送到仓库，CI 构建出静态文件后推到 GitHub Pages 仓库，博客自动上线。这套「双仓库」架构（私密的源码仓库 + 公开的 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt; Pages 仓库）在跨仓库推送时有个绕不开的问题——GitHub Actions 自带的 &lt;code&gt;GITHUB_TOKEN&lt;/code&gt; 只能操作当前仓库，往 Pages 仓库推送必须额外携带凭据。&lt;/p&gt;
-&lt;p&gt;之前 workflow 里用的是 &lt;code&gt;personal_token&lt;/code&gt;（Personal Access Token），但某次推送后 CI 直接报 &lt;code&gt;The process &amp;#39;/usr/bin/git&amp;#39; failed with exit code 128&lt;/code&gt;，排查下来是跨仓库推送的凭据一直没真正可用。问题不是”要不要凭据”，而是”用什么凭据”。最后我换成了 &lt;strong&gt;SSH Deploy Key&lt;/strong&gt;，这篇文章讲清楚为什么、怎么做、以及有什么风险。&lt;/p&gt;</description>
+      <description>&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;之前写过&lt;a href=&quot;/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/&quot;&gt;《使用GitHub Actions自动部署Hexo博客》&lt;/a&gt;，把「写完文章 → 推送 → 自动上线」这条流水线搭了起来。我的部署是典型的双仓库结构：源码在一个私有仓库，构建产物推到公开的 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt; Pages 仓库。&lt;/p&gt;
+&lt;p&gt;这套结构有个绕不开的坑：&lt;strong&gt;CI 要往另一个仓库推送&lt;/strong&gt;，而 GitHub Actions 自带的 &lt;code&gt;GITHUB_TOKEN&lt;/code&gt; 只能操作当前仓库。跨仓库推送必须额外带凭据，我一开始用的是 &lt;code&gt;personal_token&lt;/code&gt;（Personal Access Token），结果某次推送后 CI 直接报 &lt;code&gt;The process &amp;#39;/usr/bin/git&amp;#39; failed with exit code 128&lt;/code&gt;——说白了，就是跨仓库推送的凭据一直没真正可用。&lt;/p&gt;
+&lt;p&gt;问题不是”要不要凭据”，而是”用什么凭据”。折腾一圈后我换成了 &lt;strong&gt;SSH Deploy Key&lt;/strong&gt;，这篇文章讲讲为什么换、怎么配、有什么风险。&lt;/p&gt;</description>
       
       
       

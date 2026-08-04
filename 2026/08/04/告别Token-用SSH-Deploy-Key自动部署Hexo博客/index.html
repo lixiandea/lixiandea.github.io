@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"lixiandea.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="背景之前介绍过用 GitHub Actions 自动部署 Hexo 博客：源码推送到仓库，CI 构建出静态文件后推到 GitHub Pages 仓库，博客自动上线。这套「双仓库」架构（私密的源码仓库 + 公开的 &lt;用户名&gt;.github.io Pages 仓库）在跨仓库推送时有个绕不开的问题——GitHub Actions 自带的 GITHUB_TOKEN 只能操作当前仓库，往 Pag">
+  <meta name="description" content="背景之前写过《使用GitHub Actions自动部署Hexo博客》，把「写完文章 → 推送 → 自动上线」这条流水线搭了起来。我的部署是典型的双仓库结构：源码在一个私有仓库，构建产物推到公开的 &lt;用户名&gt;.github.io Pages 仓库。 这套结构有个绕不开的坑：CI 要往另一个仓库推送，而 GitHub Actions 自带的 GITHUB_TOKEN 只能操作当前仓库。跨仓">
 <meta property="og:type" content="article">
 <meta property="og:title" content="告别 Token：用 SSH Deploy Key 自动部署 Hexo 博客">
 <meta property="og:url" content="https://lixiandea.github.io/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="lixiande的博客">
-<meta property="og:description" content="背景之前介绍过用 GitHub Actions 自动部署 Hexo 博客：源码推送到仓库，CI 构建出静态文件后推到 GitHub Pages 仓库，博客自动上线。这套「双仓库」架构（私密的源码仓库 + 公开的 &lt;用户名&gt;.github.io Pages 仓库）在跨仓库推送时有个绕不开的问题——GitHub Actions 自带的 GITHUB_TOKEN 只能操作当前仓库，往 Pag">
+<meta property="og:description" content="背景之前写过《使用GitHub Actions自动部署Hexo博客》，把「写完文章 → 推送 → 自动上线」这条流水线搭了起来。我的部署是典型的双仓库结构：源码在一个私有仓库，构建产物推到公开的 &lt;用户名&gt;.github.io Pages 仓库。 这套结构有个绕不开的坑：CI 要往另一个仓库推送，而 GitHub Actions 自带的 GITHUB_TOKEN 只能操作当前仓库。跨仓">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-08-04T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-04T06:32:33.046Z">
+<meta property="article:modified_time" content="2026-08-04T06:33:51.035Z">
 <meta property="article:author" content="Lixiande">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="GitHub-Actions">
@@ -233,7 +233,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2026-08-04 12:00:00 / 修改时间：06:32:33" itemprop="dateCreated datePublished" datetime="2026-08-04T12:00:00+00:00">2026-08-04</time>
+              <time title="创建时间：2026-08-04 12:00:00 / 修改时间：06:33:51" itemprop="dateCreated datePublished" datetime="2026-08-04T12:00:00+00:00">2026-08-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,13 +267,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前介绍过用 GitHub Actions 自动部署 Hexo 博客：源码推送到仓库，CI 构建出静态文件后推到 GitHub Pages 仓库，博客自动上线。这套「双仓库」架构（私密的源码仓库 + 公开的 <code>&lt;用户名&gt;.github.io</code> Pages 仓库）在跨仓库推送时有个绕不开的问题——GitHub Actions 自带的 <code>GITHUB_TOKEN</code> 只能操作当前仓库，往 Pages 仓库推送必须额外携带凭据。</p>
-<p>之前 workflow 里用的是 <code>personal_token</code>（Personal Access Token），但某次推送后 CI 直接报 <code>The process &#39;/usr/bin/git&#39; failed with exit code 128</code>，排查下来是跨仓库推送的凭据一直没真正可用。问题不是”要不要凭据”，而是”用什么凭据”。最后我换成了 <strong>SSH Deploy Key</strong>，这篇文章讲清楚为什么、怎么做、以及有什么风险。</p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前写过<a href="/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/">《使用GitHub Actions自动部署Hexo博客》</a>，把「写完文章 → 推送 → 自动上线」这条流水线搭了起来。我的部署是典型的双仓库结构：源码在一个私有仓库，构建产物推到公开的 <code>&lt;用户名&gt;.github.io</code> Pages 仓库。</p>
+<p>这套结构有个绕不开的坑：<strong>CI 要往另一个仓库推送</strong>，而 GitHub Actions 自带的 <code>GITHUB_TOKEN</code> 只能操作当前仓库。跨仓库推送必须额外带凭据，我一开始用的是 <code>personal_token</code>（Personal Access Token），结果某次推送后 CI 直接报 <code>The process &#39;/usr/bin/git&#39; failed with exit code 128</code>——说白了，就是跨仓库推送的凭据一直没真正可用。</p>
+<p>问题不是”要不要凭据”，而是”用什么凭据”。折腾一圈后我换成了 <strong>SSH Deploy Key</strong>，这篇文章讲讲为什么换、怎么配、有什么风险。</p>
 <span id="more"></span>
 
-<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">本地推送代码到 hexo 分支</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">GitHub Actions 触发 workflow</span><br><span class="line">        │</span><br><span class="line">        ├── npm ci 安装依赖</span><br><span class="line">        ├── hexo generate 生成静态文件</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">peaceiris/actions-gh-pages（使用 Deploy Key）</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">推送到 &lt;用户名&gt;.github.io (master 分支)</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">GitHub Pages 自动上线</span><br></pre></td></tr></table></figure>
-
-<h2 id="为什么不用-PAT，而用-Deploy-Key"><a href="#为什么不用-PAT，而用-Deploy-Key" class="headerlink" title="为什么不用 PAT，而用 Deploy Key"></a>为什么不用 PAT，而用 Deploy Key</h2><p>跨仓库推送的凭据有两种主流选择：</p>
+<h2 id="为什么不用-Token，而用-Deploy-Key"><a href="#为什么不用-Token，而用-Deploy-Key" class="headerlink" title="为什么不用 Token，而用 Deploy Key"></a>为什么不用 Token，而用 Deploy Key</h2><p>先说结论：跨仓库推送的凭据无非两种，Personal Access Token 或者 SSH Deploy Key，我强烈建议后者。</p>
 <table>
 <thead>
 <tr>
@@ -308,43 +307,50 @@
 <td>本地生成密钥对，粘贴两次</td>
 </tr>
 </tbody></table>
-<p>PAT 最大的问题就是<strong>权限面过大</strong>：一个 <code>repo</code> scope 的 token 相当于把账号下所有仓库的读写权都交给了 CI。一旦这个 secret 泄露，攻击者拿到的不只是博客，而是你 GitHub 账号能看到的全部代码。Deploy Key 是一把”专钥专用”的钥匙：它只对目标 Pages 仓库有写权限，就算泄露，损失也被锁死在这个仓库里。</p>
-<p>另一个现实原因是<strong>它真的能跑通</strong>：Deploy Key 走 SSH 协议，不依赖 token 的 scope 配置、过期时间、SSO 授权这些环节，配好就是好的。</p>
+<p>Token 最大的问题是<strong>权限面过大</strong>：一个 <code>repo</code> scope 的 token 相当于把账号下所有仓库的读写权都交给了 CI。一旦 secret 泄露，攻击者拿到的不只是博客，而是你 GitHub 账号能看到的全部代码。Deploy Key 是一把”专钥专用”的钥匙，只对 Pages 仓库有写权限，就算泄露，损失也被锁死在一个仓库里。</p>
+<p>另一个现实原因是<strong>它真的能跑通</strong>。Deploy Key 走 SSH 协议，不依赖 token 的 scope、过期时间、SSO 授权这些环节，配好就是好的，不存在”看着配置没问题却推不上去”的玄学。</p>
+<h2 id="前置要求"><a href="#前置要求" class="headerlink" title="前置要求"></a>前置要求</h2><ul>
+<li>一个 Hexo 项目，已配置好 <code>.github/workflows/main.yml</code>（还不会配的可以先看上一篇）</li>
+<li>一个公开的 <code>&lt;用户名&gt;.github.io</code> Pages 仓库</li>
+<li>本地能执行 <code>ssh-keygen</code>（macOS &#x2F; Linux 自带）</li>
+</ul>
 <h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><h3 id="第一步：生成密钥对"><a href="#第一步：生成密钥对" class="headerlink" title="第一步：生成密钥对"></a>第一步：生成密钥对</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;github-actions-deploy&quot;</span> -f ~/.ssh/blog_deploy_key -N <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>生成两个文件：<code>~/.ssh/blog_deploy_key</code>（私钥）和 <code>~/.ssh/blog_deploy_key.pub</code>（公钥）。</p>
-<h3 id="第二步：公钥挂到-Pages-仓库"><a href="#第二步：公钥挂到-Pages-仓库" class="headerlink" title="第二步：公钥挂到 Pages 仓库"></a>第二步：公钥挂到 Pages 仓库</h3><p>打开 <code>&lt;用户名&gt;.github.io</code> → Settings → Deploy keys → <strong>Add deploy key</strong>：</p>
+<p>生成两个文件：私钥 <code>blog_deploy_key</code> 和公钥 <code>blog_deploy_key.pub</code>。私钥自留，公钥给 GitHub。</p>
+<h3 id="第二步：把公钥挂到-Pages-仓库"><a href="#第二步：把公钥挂到-Pages-仓库" class="headerlink" title="第二步：把公钥挂到 Pages 仓库"></a>第二步：把公钥挂到 Pages 仓库</h3><p>打开 <code>&lt;用户名&gt;.github.io</code> → Settings → Deploy keys → <strong>Add deploy key</strong>：</p>
 <ul>
-<li>Title 随便写，比如 <code>github-actions-deploy</code>；</li>
-<li>Key 粘贴公钥内容；</li>
-<li><strong>必须勾选 Allow write access</strong>，否则只能读不能推。</li>
+<li>Title 随意，比如 <code>github-actions-deploy</code></li>
+<li>Key 粘贴公钥内容</li>
+<li><strong>务必勾选 Allow write access</strong>，否则只能读不能推</li>
 </ul>
-<h3 id="第三步：私钥存为-Actions-secret"><a href="#第三步：私钥存为-Actions-secret" class="headerlink" title="第三步：私钥存为 Actions secret"></a>第三步：私钥存为 Actions secret</h3><p>打开源码仓库 → Settings → Secrets and variables → Actions → <strong>New repository secret</strong>：</p>
+<h3 id="第三步：把私钥存成-Actions-secret"><a href="#第三步：把私钥存成-Actions-secret" class="headerlink" title="第三步：把私钥存成 Actions secret"></a>第三步：把私钥存成 Actions secret</h3><p>打开源码仓库 → Settings → Secrets and variables → Actions → <strong>New repository secret</strong>：</p>
 <ul>
 <li>Name：<code>DEPLOY_KEY</code></li>
-<li>Secret：私钥<strong>完整内容</strong>（含 <code>-----BEGIN OPENSSH PRIVATE KEY-----</code> 头尾），可以 <code>cat ~/.ssh/blog_deploy_key</code> 复制。</li>
+<li>Secret：私钥<strong>完整内容</strong>（含 <code>-----BEGIN OPENSSH PRIVATE KEY-----</code> 头尾），<code>cat ~/.ssh/blog_deploy_key</code> 复制即可</li>
 </ul>
-<h3 id="第四步：修改-workflow"><a href="#第四步：修改-workflow" class="headerlink" title="第四步：修改 workflow"></a>第四步：修改 workflow</h3><p><code>.github/workflows/main.yml</code> 里把 <code>personal_token</code> 换成 <code>deploy_key</code>：</p>
+<blockquote>
+<p>secret 存进去之后 GitHub 就看不到明文了，所以本地私钥别删太早，等确认部署没问题再说。</p>
+</blockquote>
+<h3 id="第四步：改-workflow"><a href="#第四步：改-workflow" class="headerlink" title="第四步：改 workflow"></a>第四步：改 workflow</h3><p><code>.github/workflows/main.yml</code> 里把 <code>personal_token</code> 换成 <code>deploy_key</code>：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v4</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">deploy_key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.DEPLOY_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">external_repository:</span> <span class="string">&lt;用户名&gt;/&lt;用户名&gt;.github.io</span></span><br><span class="line">    <span class="attr">publish_branch:</span> <span class="string">master</span></span><br><span class="line">    <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="第五步：验证"><a href="#第五步：验证" class="headerlink" title="第五步：验证"></a>第五步：验证</h3><p>先确认密钥被 GitHub 认可：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T -i ~/.ssh/blog_deploy_key git@github.com</span><br></pre></td></tr></table></figure>
 
-<p>返回 <code>Hi &lt;用户名&gt;/&lt;用户名&gt;.github.io! You&#39;ve successfully authenticated</code> 就说明公钥挂载成功。然后随便推送一次（或重跑失败的 run），去 Pages 仓库的提交页看有没有 <code>deploy:</code> 开头的提交——有就说明 CI 走通了。</p>
-<h3 id="第六步：收尾"><a href="#第六步：收尾" class="headerlink" title="第六步：收尾"></a>第六步：收尾</h3><p>确认稳定后，把旧的 <code>DEPLOY_TOKEN</code> secret 删掉；本地私钥副本如果不再需要也删除，或移到 <code>~/.ssh/</code> 并 <code>chmod 600</code> 保管。</p>
-<h2 id="风险与注意事项"><a href="#风险与注意事项" class="headerlink" title="风险与注意事项"></a>风险与注意事项</h2><p>Deploy Key 方案不是银弹，几个点要心里有数：</p>
-<h3 id="1-私钥泄露-博客仓库被改写"><a href="#1-私钥泄露-博客仓库被改写" class="headerlink" title="1. 私钥泄露 &#x3D; 博客仓库被改写"></a>1. 私钥泄露 &#x3D; 博客仓库被改写</h3><p>拿到私钥的人可以随意推送内容到 Pages 仓库，相当于能控制你博客的展示内容（包括挂恶意脚本）。所以：</p>
-<ul>
-<li>私钥<strong>绝不</strong>提交到 Git、dotfiles 仓库或任何公开位置；</li>
-<li>不要把私钥内容贴在聊天记录、工单里；</li>
-<li>本地副本用完即删，或放进 <code>~/.ssh</code> 并收紧权限。</li>
+<p>返回 <code>Hi &lt;用户名&gt;/&lt;用户名&gt;.github.io! You&#39;ve successfully authenticated</code> 就说明公钥挂载成功。接着随便推送一次（或者重跑失败的 run），去 Pages 仓库提交页看有没有 <code>deploy:</code> 开头的提交——有就说明 CI 走通了。</p>
+<h3 id="第六步：收尾"><a href="#第六步：收尾" class="headerlink" title="第六步：收尾"></a>第六步：收尾</h3><ul>
+<li>确认稳定后，删掉旧的 <code>DEPLOY_TOKEN</code> secret</li>
+<li>本地私钥副本不需要了就删；想留底就放 <code>~/.ssh/</code> 并 <code>chmod 600</code></li>
 </ul>
-<h3 id="2-一旦怀疑泄露，立即吊销"><a href="#2-一旦怀疑泄露，立即吊销" class="headerlink" title="2. 一旦怀疑泄露，立即吊销"></a>2. 一旦怀疑泄露，立即吊销</h3><p>吊销 &#x3D; 在 Pages 仓库的 Deploy keys 里删掉这把公钥，然后重新生成密钥对、更新 <code>DEPLOY_KEY</code> secret。整个过程几分钟，比吊销 PAT 简单，这也是选它的加分项。</p>
-<h3 id="3-secret-存进去就看不到了"><a href="#3-secret-存进去就看不到了" class="headerlink" title="3. secret 存进去就看不到了"></a>3. secret 存进去就看不到了</h3><p>GitHub 的 secret 只能写入，不能回显。如果私钥丢了又没留本地副本，只能重新生成一遍，没有”导出”选项。</p>
-<h3 id="4-一把-Deploy-Key-只绑一个仓库"><a href="#4-一把-Deploy-Key-只绑一个仓库" class="headerlink" title="4. 一把 Deploy Key 只绑一个仓库"></a>4. 一把 Deploy Key 只绑一个仓库</h3><p>Deploy Key 不能跨仓库复用。如果以后还有别的 Pages 仓库，需要再生成一把新的。这是刻意的——权限最小化。</p>
-<h3 id="5-每次-push-都会触发部署"><a href="#5-每次-push-都会触发部署" class="headerlink" title="5. 每次 push 都会触发部署"></a>5. 每次 push 都会触发部署</h3><p>workflow 监听 <code>hexo</code> 分支，<strong>空提交也会触发</strong>（验证时我就是用空提交触发的）。调试 CI 时注意别制造无意义的提交；误推送后如果不想部署，只能等构建完再处理 Pages 仓库。</p>
-<h3 id="6-构建在-GitHub-托管-runner-上执行"><a href="#6-构建在-GitHub-托管-runner-上执行" class="headerlink" title="6. 构建在 GitHub 托管 runner 上执行"></a>6. 构建在 GitHub 托管 runner 上执行</h3><p>密钥会以 secret 形式注入 runner 环境，构建依赖（<code>npm ci</code>、克隆主题）也来自第三方。虽然 Deploy Key 权限被限制在单个仓库，但生产级 CI 仍建议固定 action 版本（目前是 <code>@v4</code> 标签），并留意依赖供应链变化。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>给”私密源码仓库 → 公开 Pages 仓库”的自动部署配凭据，原则就一句话：<strong>用最小权限的专钥，而不是账号级的 token</strong>。SSH Deploy Key 只对目标仓库有写权限、泄露可单点吊销、不经过账号体系，是这个场景下比 PAT 更可控的选择。配置成本只有”生成一次密钥、粘贴两次、改一行 workflow”，换来的是稳定可验证的自动部署和更小的爆炸半径。</p>
+<h2 id="可能的风险"><a href="#可能的风险" class="headerlink" title="可能的风险"></a>可能的风险</h2><p>Deploy Key 不是银弹，几个坑提前说：</p>
+<ol>
+<li><strong>私钥泄露 &#x3D; 博客仓库被改写</strong>。拿到私钥的人能随意往 Pages 仓库推内容，等于能控制你博客展示的东西（包括挂恶意脚本）。所以私钥绝不提交 Git、不贴聊天记录，本地副本用完即删。</li>
+<li><strong>怀疑泄露就立即吊销</strong>。在 Pages 仓库的 Deploy keys 里删掉公钥，重新生成密钥对、更新 secret，几分钟搞定，比吊销 token 简单。</li>
+<li><strong>secret 不能回显</strong>。私钥丢了又没留本地副本，只能重新生成一套，没有”导出”选项。</li>
+<li><strong>一把 Deploy Key 只绑一个仓库</strong>，不能复用。以后有别的 Pages 仓库就再生成一把，这是刻意为之的权限最小化。</li>
+<li><strong>每次 push 都会触发部署</strong>。workflow 监听 <code>hexo</code> 分支，空提交也会触发，调试 CI 时别制造无意义的提交。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一句话：<strong>自动部署跨仓库推送，用最小权限的专钥，别用账号级的 token</strong>。SSH Deploy Key 只对目标仓库有写权限、泄露可以单点吊销、不依赖账号体系，是这个场景下比 PAT 更可控的选择。配置成本也就”生成一次密钥、粘贴两次、改一行 workflow”，换来的是稳定可用的自动部署和更小的爆炸半径。</p>
 
     </div>
 
@@ -446,7 +452,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8-PAT%EF%BC%8C%E8%80%8C%E7%94%A8-Deploy-Key"><span class="nav-number">3.</span> <span class="nav-text">为什么不用 PAT，而用 Deploy Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text">配置步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="nav-number">4.1.</span> <span class="nav-text">第一步：生成密钥对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%85%AC%E9%92%A5%E6%8C%82%E5%88%B0-Pages-%E4%BB%93%E5%BA%93"><span class="nav-number">4.2.</span> <span class="nav-text">第二步：公钥挂到 Pages 仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E7%A7%81%E9%92%A5%E5%AD%98%E4%B8%BA-Actions-secret"><span class="nav-number">4.3.</span> <span class="nav-text">第三步：私钥存为 Actions secret</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E4%BF%AE%E6%94%B9-workflow"><span class="nav-number">4.4.</span> <span class="nav-text">第四步：修改 workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E9%AA%8C%E8%AF%81"><span class="nav-number">4.5.</span> <span class="nav-text">第五步：验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E6%AD%A5%EF%BC%9A%E6%94%B6%E5%B0%BE"><span class="nav-number">4.6.</span> <span class="nav-text">第六步：收尾</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A3%8E%E9%99%A9%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.</span> <span class="nav-text">风险与注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%A7%81%E9%92%A5%E6%B3%84%E9%9C%B2-%E5%8D%9A%E5%AE%A2%E4%BB%93%E5%BA%93%E8%A2%AB%E6%94%B9%E5%86%99"><span class="nav-number">5.1.</span> <span class="nav-text">1. 私钥泄露 &#x3D; 博客仓库被改写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%80%E6%97%A6%E6%80%80%E7%96%91%E6%B3%84%E9%9C%B2%EF%BC%8C%E7%AB%8B%E5%8D%B3%E5%90%8A%E9%94%80"><span class="nav-number">5.2.</span> <span class="nav-text">2. 一旦怀疑泄露，立即吊销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-secret-%E5%AD%98%E8%BF%9B%E5%8E%BB%E5%B0%B1%E7%9C%8B%E4%B8%8D%E5%88%B0%E4%BA%86"><span class="nav-number">5.3.</span> <span class="nav-text">3. secret 存进去就看不到了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%B8%80%E6%8A%8A-Deploy-Key-%E5%8F%AA%E7%BB%91%E4%B8%80%E4%B8%AA%E4%BB%93%E5%BA%93"><span class="nav-number">5.4.</span> <span class="nav-text">4. 一把 Deploy Key 只绑一个仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%AF%8F%E6%AC%A1-push-%E9%83%BD%E4%BC%9A%E8%A7%A6%E5%8F%91%E9%83%A8%E7%BD%B2"><span class="nav-number">5.5.</span> <span class="nav-text">5. 每次 push 都会触发部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%9E%84%E5%BB%BA%E5%9C%A8-GitHub-%E6%89%98%E7%AE%A1-runner-%E4%B8%8A%E6%89%A7%E8%A1%8C"><span class="nav-number">5.6.</span> <span class="nav-text">6. 构建在 GitHub 托管 runner 上执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8-Token%EF%BC%8C%E8%80%8C%E7%94%A8-Deploy-Key"><span class="nav-number">2.</span> <span class="nav-text">为什么不用 Token，而用 Deploy Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E8%A6%81%E6%B1%82"><span class="nav-number">3.</span> <span class="nav-text">前置要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text">配置步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="nav-number">4.1.</span> <span class="nav-text">第一步：生成密钥对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E6%8A%8A%E5%85%AC%E9%92%A5%E6%8C%82%E5%88%B0-Pages-%E4%BB%93%E5%BA%93"><span class="nav-number">4.2.</span> <span class="nav-text">第二步：把公钥挂到 Pages 仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E6%8A%8A%E7%A7%81%E9%92%A5%E5%AD%98%E6%88%90-Actions-secret"><span class="nav-number">4.3.</span> <span class="nav-text">第三步：把私钥存成 Actions secret</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E6%94%B9-workflow"><span class="nav-number">4.4.</span> <span class="nav-text">第四步：改 workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E9%AA%8C%E8%AF%81"><span class="nav-number">4.5.</span> <span class="nav-text">第五步：验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E6%AD%A5%EF%BC%9A%E6%94%B6%E5%B0%BE"><span class="nav-number">4.6.</span> <span class="nav-text">第六步：收尾</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E7%9A%84%E9%A3%8E%E9%99%A9"><span class="nav-number">5.</span> <span class="nav-text">可能的风险</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

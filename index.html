@@ -224,7 +224,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2026-08-04 12:00:00 / 修改时间：06:32:33" itemprop="dateCreated datePublished" datetime="2026-08-04T12:00:00+00:00">2026-08-04</time>
+              <time title="创建时间：2026-08-04 12:00:00 / 修改时间：06:33:51" itemprop="dateCreated datePublished" datetime="2026-08-04T12:00:00+00:00">2026-08-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -251,8 +251,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前介绍过用 GitHub Actions 自动部署 Hexo 博客：源码推送到仓库，CI 构建出静态文件后推到 GitHub Pages 仓库，博客自动上线。这套「双仓库」架构（私密的源码仓库 + 公开的 <code>&lt;用户名&gt;.github.io</code> Pages 仓库）在跨仓库推送时有个绕不开的问题——GitHub Actions 自带的 <code>GITHUB_TOKEN</code> 只能操作当前仓库，往 Pages 仓库推送必须额外携带凭据。</p>
-<p>之前 workflow 里用的是 <code>personal_token</code>（Personal Access Token），但某次推送后 CI 直接报 <code>The process &#39;/usr/bin/git&#39; failed with exit code 128</code>，排查下来是跨仓库推送的凭据一直没真正可用。问题不是”要不要凭据”，而是”用什么凭据”。最后我换成了 <strong>SSH Deploy Key</strong>，这篇文章讲清楚为什么、怎么做、以及有什么风险。</p>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前写过<a href="/2026/05/12/%E4%BD%BF%E7%94%A8GitHub-Actions%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/">《使用GitHub Actions自动部署Hexo博客》</a>，把「写完文章 → 推送 → 自动上线」这条流水线搭了起来。我的部署是典型的双仓库结构：源码在一个私有仓库，构建产物推到公开的 <code>&lt;用户名&gt;.github.io</code> Pages 仓库。</p>
+<p>这套结构有个绕不开的坑：<strong>CI 要往另一个仓库推送</strong>，而 GitHub Actions 自带的 <code>GITHUB_TOKEN</code> 只能操作当前仓库。跨仓库推送必须额外带凭据，我一开始用的是 <code>personal_token</code>（Personal Access Token），结果某次推送后 CI 直接报 <code>The process &#39;/usr/bin/git&#39; failed with exit code 128</code>——说白了，就是跨仓库推送的凭据一直没真正可用。</p>
+<p>问题不是”要不要凭据”，而是”用什么凭据”。折腾一圈后我换成了 <strong>SSH Deploy Key</strong>，这篇文章讲讲为什么换、怎么配、有什么风险。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/08/04/%E5%91%8A%E5%88%ABToken-%E7%94%A8SSH-Deploy-Key%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/#more" rel="contents">
@@ -310,7 +311,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -400,7 +401,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -490,7 +491,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -577,7 +578,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -662,7 +663,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -748,7 +749,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -841,7 +842,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -933,7 +934,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1010,7 +1011,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-08-04 06:32:33" itemprop="dateModified" datetime="2026-08-04T06:32:33+00:00">2026-08-04</time>
+                <time title="修改时间：2026-08-04 06:33:51" itemprop="dateModified" datetime="2026-08-04T06:33:51+00:00">2026-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
